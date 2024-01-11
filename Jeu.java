@@ -1,15 +1,8 @@
 import java.util.*;
 
-
 public class Jeu {
 
-
     public static void main(String[] args) {
-        démarrer();
-    }
-
-
-    public void demarrer() {
 
         boolean fin = false;
         int ordreDeJeu = 0;
@@ -20,6 +13,7 @@ public class Jeu {
         Joueur joueur3 = new Joueur("R");
         Joueur joueur4 = new Joueur("J");
         Joueur joueurActuel;
+        ArrayList<Joueur> listeJoueur = new ArrayList<>();
 
         listeJoueur.add(joueur1);
         listeJoueur.add(joueur2);
@@ -38,14 +32,11 @@ public class Jeu {
         }
     }
 
-
     public void inscription() {
-        // TODO implement here
-    }
 
+    }
 
     public void fin() {
-        // TODO implement here
-    }
 
+    }
 }

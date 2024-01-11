@@ -1,30 +1,11 @@
-
-import java.util.*;
-
-/**
- * 
- */
 public class Gare extends Case {
 
-    /**
-     * Default constructor
-     */
-    public Gare() {
-    }
-
-    /**
-     * 
-     */
+    public String nomGare;
     public int prixGare;
 
-    /**
-     * 
-     */
-    public listeGare listeGare;
-
-    /**
-     * 
-     */
-    public String nomGare;
-
+    public Gare(int index, String nomGare, int prixGare) {
+        super(index);
+        this.nomGare = nomGare;
+        this.prixGare = prixGare;
+    }
 }

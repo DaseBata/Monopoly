@@ -1,11 +1,5 @@
-
-import java.util.*;
 import java.util.ArrayList;
-import java.util.List;
 
-/**
- *
- */
 public abstract class Case {
 
     public int numeroCase;
@@ -13,21 +7,22 @@ public abstract class Case {
     public String descriptifCase;
     public String nomCase;
 
-
     public Case(int numeroCase) {
-        listeJoueur = new ArrayList<>();
-        numeroCase = numeroCase;
+        this.listeJoueur = new ArrayList<>();
+        this.numeroCase = numeroCase;
     }
 
-    public boolean contientJoueur(ArrayList<joueur> listeJoueur, Joueur Joueur){
+    /*
+    public boolean contientJoueur(ArrayList<Joueur> listeJoueur, Joueur Joueur){
 
-        i = 0;
-        while (i<listeJoueur.length()){
-            if(listeJoueur.get(i).equals(joueur)){
+        int i = 0;
+        while (i<listeJoueur.size()){
+            if(listeJoueur.get(i).equals(Joueur)){
                 return true;
             }
             i++;
         }
         return false;
     }
+    */
 }

@@ -1,6 +1,4 @@
 import java.util.*;
-import java.util.Random;
-
 
 public class Joueur {
 
@@ -11,21 +9,22 @@ public class Joueur {
     public boolean doubleDes;
     public int compteurDouble;
 
-
     public Joueur(String nomJoueur) {
         this.nomJoueur = nomJoueur;
-        this.argentJoueur = 150 000;
+        this.argentJoueur = 150000;
         this.caseActuelle = 0;
         this.enPrison = false;
         this.doubleDes = false;
         this.compteurDouble = 0;
     }
 
-    public void sinscrire(NomJoueur String ) {
+    public void sinscrire(String nomJoueur) {
 
     }
 
     public int lancerDes() {
+
+        Random random = new Random();
 
         int random1 = random.nextInt(6) + 1;
         int random2 = random.nextInt(6) + 1;
@@ -38,37 +37,41 @@ public class Joueur {
         return random1 + random2;
     }
 
+    public void deplacer(int casesAAvancer, ArrayList<Case> listeCase){
+
+    }
+
     public void avancer(int casesAAvancer, ArrayList<Case> listeCase){
 
     }
 
-    public void acheter(case Case, joueur Joueur) {
-        // TODO implement here
+    public void acheter(Case emplacement, Joueur Joueur) {
+
     }
 
 
-    public void payer(montant int, joueur Joueur) {
-        // TODO implement here
+    public void payer(int montant, Joueur Joueur) {
+
     }
 
 
-    public void allerPrison(joueur Joueur) {
-        // TODO implement here
+    public void allerPrison(Joueur joueur) {
+
     }
 
 
-    public void beneficieParc(joueur Joueur) {
-        // TODO implement here
+    public void beneficieParc(Joueur joueur) {
+
     }
 
 
-    public void tirerChance(joueur Joueur) {
-        // TODO implement here
+    public void tirerChance(Joueur joueur) {
+
     }
 
 
-    public void toucherArgent(joueur Joueur) {
-        // TODO implement here
+    public void toucherArgent(Joueur joueur) {
+
     }
 
 }

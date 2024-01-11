@@ -1,30 +1,14 @@
+import java.util.ArrayList;
 
-import java.util.*;
-
-/**
- * 
- */
 public class Propriete extends Case {
 
-    /**
-     * Default constructor
-     */
-    public Propriete() {
-    }
-
-    /**
-     * 
-     */
     public int prixPropriete;
-
-    /**
-     * 
-     */
-    public listeCase listePropriete;
-
-    /**
-     * 
-     */
+    public ArrayList<Batiment> maisonsHotels;
     public String nomPropriete;
 
+    public Propriete(int index, String nomPropriete, int prixPropriete) {
+        super(index);
+        this.nomPropriete = nomPropriete;
+        this.prixPropriete = prixPropriete;
+    }
 }
