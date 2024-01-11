@@ -42,7 +42,8 @@ public class Joueur {
     public void deplacer(int casesAAvancer, ArrayList<Case> listeCase){
 
         if(this.caseActuelle + casesAAvancer >= listeCase.get(0).numeroCase){
-            this.argentJoueur = listeCase.get(0).getArgentPassage();
+            Depart passageDepart = listeCase.get(0);
+            passageDepart.getArgentPassage(); //peut etre ajouter une constante de passage dans case directement
         }
 
         this.caseActuelle = (this.caseActuelle + casesAAvancer) % listeCase.size();
