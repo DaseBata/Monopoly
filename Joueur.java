@@ -8,11 +8,13 @@ public class Joueur {
     public int caseActuelle;
     public boolean doubleDes;
     public int compteurDouble;
+    public int ancienneCase;
 
     public Joueur(String nomJoueur) {
         this.nomJoueur = nomJoueur;
         this.argentJoueur = 150000;
         this.caseActuelle = 0;
+        this.ancienneCase = this.caseActuelle;
         this.enPrison = false;
         this.doubleDes = false;
         this.compteurDouble = 0;
@@ -39,6 +41,14 @@ public class Joueur {
 
     public void deplacer(int casesAAvancer, ArrayList<Case> listeCase){
 
+        if(this.caseActuelle + casesAAvancer >= listeCase.get(0).numeroCase){
+            this.argentJoueur = listeCase.get(0).getArgentPassage();
+        }
+
+        this.caseActuelle = (this.caseActuelle + casesAAvancer) % listeCase.size();
+
+        listeCase.get(this.ancienneCase).enleverJoueur(this);
+        listeCase.get(this.caseActuelle).ajouterJoueur(this);
     }
 
     public void avancer(int casesAAvancer, ArrayList<Case> listeCase){

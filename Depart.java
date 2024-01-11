@@ -1,11 +1,14 @@
 public class Depart extends Case {
 
     public String nomCase;
-    public int argentDePassage;
+    public int argentDePassage = 200;
 
     public Depart(int index, String nomPropriete) {
         super(index);
         this.nomCase = nomPropriete;
-        this.argentDePassage = 200;
+    }
+
+    public int getArgentPassage(){
+        return this.argentDePassage;
     }
 }

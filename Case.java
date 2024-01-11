@@ -12,6 +12,20 @@ public abstract class Case {
         this.numeroCase = numeroCase;
     }
 
+    public void ajouterJoueur(Joueur joueur){
+        listeJoueur.add(joueur);
+    }
+
+    public void enleverJoueur(Joueur joueur){
+        int i = 0;
+        while (i<listeJoueur.size()){
+            if(listeJoueur.get(i).equals(joueur)){
+                listeJoueur.remove(i);
+            }
+            i++;
+        }
+    }
+
     /*
     public boolean contientJoueur(ArrayList<Joueur> listeJoueur, Joueur Joueur){
 
