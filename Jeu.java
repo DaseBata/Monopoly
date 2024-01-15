@@ -7,6 +7,7 @@ public class Jeu {
         boolean fin = false;
         int ordreDeJeu = 0;
         int casesAAvancer;
+        Case caseATraiter;
 
         Joueur joueur1 = new Joueur("B");
         Joueur joueur2 = new Joueur("V");
@@ -27,8 +28,37 @@ public class Jeu {
         while (fin != true){
             joueurActuel = listeJoueur.get(ordreDeJeu);
 
-            casesAAvancer = joueurActuel.lancerDes();
-            joueurActuel.deplacer(casesAAvancer, plateau.listeCase);
+            if(!plateau.getCase(joueurActuel.caseActuelle).nomCase.equals("Prison")){
+
+                casesAAvancer = joueurActuel.lancerDes();
+                joueurActuel.deplacer(casesAAvancer, plateau.listeCase);
+
+                caseATraiter = plateau.getCase(joueurActuel.caseActuelle);
+
+                caseATraiter.action(joueurActuel, plateau.listeCase);
+            } else {
+
+            }
+
+            //Propriete
+                //acheter ?
+                //vendre ?
+                //payer impot ?
+
+            //Taxe
+                //prelever
+
+            //Chance
+                //Tirer carte chance et faire son effet
+
+            //Caisse communauté
+                //Tirer carte communauté et faire son effet
+
+            //Aller prison
+                //aller en prison
+
+            //Parc gratuit
+                //recuperer argent
         }
     }
 

@@ -41,15 +41,19 @@ public class Joueur {
 
     public void deplacer(int casesAAvancer, ArrayList<Case> listeCase){
 
-        if(this.caseActuelle + casesAAvancer >= listeCase.get(0).numeroCase){
-            Depart passageDepart = listeCase.get(0);
-            passageDepart.getArgentPassage(); //peut etre ajouter une constante de passage dans case directement
+        // regarde si la prochaine case passe devant le départ
+        if((this.caseActuelle + casesAAvancer) % listeCase.size() <= this.caseActuelle){
+            // si oui on fait un "nouveau" depart et on gagne de l'argent
+            Depart passageDepart = new Depart(0,"Depart");
+            passageDepart.getArgentPassage();
         }
 
         this.caseActuelle = (this.caseActuelle + casesAAvancer) % listeCase.size();
 
         listeCase.get(this.ancienneCase).enleverJoueur(this);
         listeCase.get(this.caseActuelle).ajouterJoueur(this);
+
+        ancienneCase = caseActuelle;
     }
 
     public void avancer(int casesAAvancer, ArrayList<Case> listeCase){

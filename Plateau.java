@@ -4,10 +4,11 @@ public class Plateau {
 
     ArrayList<Case> listeCase;
     int argentParcGratuit;
+    ParcGratuit parc;
 
     public Plateau() {
         listeCase = new ArrayList<>();
-        argentParcGratuit = 0;
+        parc = new ParcGratuit(20);
     }
 
     public void initialiserPlateau(){
@@ -34,7 +35,8 @@ public class Plateau {
         listeCase.add(new Propriete(18, "Boulevard Saint-Michel", 18000));
         listeCase.add(new Propriete(19, "Place Pigalle", 20000));
 
-        listeCase.add(new ParcGratuit(20));
+
+        listeCase.add(this.parc);
         listeCase.add(new Propriete(21, "Avenue Matignon", 22000));
         listeCase.add(new Chance(22));
         listeCase.add(new Propriete(23, "Boulevard Malesherbes", 22000));
@@ -62,5 +64,18 @@ public class Plateau {
         listeCase.get(0).listeJoueur.add(joueur2);
         listeCase.get(0).listeJoueur.add(joueur3);
         listeCase.get(0).listeJoueur.add(joueur4);
+    }
+
+    public Case getCase(int index){
+
+        Case caseRetour;
+        caseRetour = this.listeCase.get(index);
+
+        return caseRetour;
+    }
+
+    public void ajoutParc(int ajoutParc){
+        int argentActuelle = parc.getArgentParc();
+        parc.setArgentParc(argentActuelle);
     }
 }

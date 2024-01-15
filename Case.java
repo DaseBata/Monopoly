@@ -26,6 +26,8 @@ public abstract class Case {
         }
     }
 
+    public abstract void action(Joueur joueur, ArrayList<Case> plateau);
+
     /*
     public boolean contientJoueur(ArrayList<Joueur> listeJoueur, Joueur Joueur){
 
