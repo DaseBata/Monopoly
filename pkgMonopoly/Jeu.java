@@ -3,6 +3,18 @@ import java.util.*;
 
 public class Jeu {
 
+    ArrayList<Joueur> listeJoueur;
+    public Jeu(Joueur joueur1, Joueur joueur2, Joueur joueur3, Joueur joueur4)
+    {
+
+        this.listeJoueur = new ArrayList<Joueur>();
+        this.listeJoueur.add(joueur1);
+        this.listeJoueur.add(joueur2);
+        this.listeJoueur.add(joueur3);
+        this.listeJoueur.add(joueur4);
+
+
+    }
     public static void main(String[] args) {
 
         boolean fin = false;
@@ -61,10 +73,6 @@ public class Jeu {
             //Parc gratuit
                 //recuperer argent
         }
-    }
-
-    public void inscription() {
-
     }
 
     public void fin() {
