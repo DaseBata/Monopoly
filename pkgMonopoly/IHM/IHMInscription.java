@@ -1,6 +1,8 @@
 package pkgMonopoly.IHM;
 import java.awt.*;
 import javax.swing.*;
+
+import pkgMonopoly.Jeu;
 import pkgMonopoly.Joueur;
 
 public class IHMInscription extends JFrame {
@@ -78,10 +80,17 @@ public class IHMInscription extends JFrame {
             return;
         }
         else {
+
             Joueur joueur1 = new Joueur(nomJoueur1.getText());
             Joueur joueur2 = new Joueur(nomJoueur2.getText());
             Joueur joueur3 = new Joueur(nomJoueur3.getText());
             Joueur joueur4 = new Joueur(nomJoueur4.getText());
+
+            this.setVisible(false);
+            this.dispose();
+
+            Jeu jeu = Jeu.getInstance();
+            jeu.initialiserJeu(joueur1, joueur2, joueur3, joueur4);
         }
     }
 

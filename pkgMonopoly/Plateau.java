@@ -1,15 +1,19 @@
 package pkgMonopoly;
+import pkgMonopoly.IHM.IHMPlateau;
+
 import java.util.ArrayList;
 
 public class Plateau {
 
-    ArrayList<Case> listeCase;
-    int argentParcGratuit;
-    ParcGratuit parc;
+    private ArrayList<Case> listeCase;
+    private int argentParcGratuit;
+    private ParcGratuit parc;
+    private IHMPlateau ihm;
 
     public Plateau() {
-        listeCase = new ArrayList<>();
-        parc = new ParcGratuit(20, "Parc gratuit");
+        this.listeCase = new ArrayList<>();
+        this.parc = new ParcGratuit(20, "Parc gratuit");
+        this.ihm = new IHMPlateau();
     }
 
     public void initialiserPlateau() {
@@ -59,23 +63,30 @@ public class Plateau {
         listeCase.add(new Propriete(39, "Rue de la Paix", 40000));
     }
 
-    public void initialiserJoueur(Joueur joueur1, Joueur joueur2, Joueur joueur3, Joueur joueur4) {
-        listeCase.get(0).listeJoueur.add(joueur1);
-        listeCase.get(0).listeJoueur.add(joueur2);
-        listeCase.get(0).listeJoueur.add(joueur3);
-        listeCase.get(0).listeJoueur.add(joueur4);
+    public void placerJoueurs(Joueur joueur1, Joueur joueur2, Joueur joueur3, Joueur joueur4, int numCase) {
+        listeCase.get(numCase).listeJoueur.add(joueur1);
+        listeCase.get(numCase).listeJoueur.add(joueur2);
+        listeCase.get(numCase).listeJoueur.add(joueur3);
+        listeCase.get(numCase).listeJoueur.add(joueur4);
     }
 
     public Case getCase(int index) {
+        return this.listeCase.get(index);
+    }
 
-        Case caseRetour;
-        caseRetour = this.listeCase.get(index);
-        return caseRetour;
+    public ArrayList<Case> getListeCase() {
+        return listeCase;
     }
 
     public void ajoutParc(int ajoutParc) {
         int argentActuelle = parc.getArgentParc();
         parc.setArgentParc(argentActuelle);
     }
+
+    public IHMPlateau getIHM()
+    {
+        return this.ihm;
+    }
+
 }
 

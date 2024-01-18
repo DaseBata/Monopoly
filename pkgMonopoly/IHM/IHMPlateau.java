@@ -10,7 +10,7 @@ public class IHMPlateau extends JFrame {
     private final JPanel panelGauche;
     private final JPanel panelDroite;
     private final JPanel panelBas;
-    private final JTextArea textAreaLog;
+    private static final JTextArea textAreaLog = new JTextArea();
 
 
     public IHMPlateau()
@@ -26,7 +26,6 @@ public class IHMPlateau extends JFrame {
         this.panelDroite = new JPanel();
         this.panelBas = new JPanel();
 
-        this.textAreaLog = new JTextArea();
 
         this.creerPanelHaut();
         this.creerPanelGauche();
@@ -79,7 +78,7 @@ public class IHMPlateau extends JFrame {
     {
         this.textAreaLog.append(message + "\n");
     }
-    
+
     public static void main(String[] args)
     {
         JFrame frame = new IHMPlateau();

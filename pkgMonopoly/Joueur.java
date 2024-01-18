@@ -64,17 +64,20 @@ public class Joueur {
     }
 
     public void acheter(Propriete emplacement, Case caseATraiter, ArrayList<Joueur> listeJoueur) {
-        // acheter ?
-        System.out.print("Voulez-vous acheter la propriété? (oui/non): ");
-        String choix = this.scanner.nextLine();
-        if (choix.equals("oui")) {
-            if (this.argentJoueur >= emplacement.prixPropriete) {
-                caseATraiter.joueurProprietaire = this;
-                this.argentJoueur = this.argentJoueur - emplacement.prixPropriete;
+        // Tout sauf case départ
+        if(!(caseATraiter instanceof Depart)) {
+            System.out.print("Voulez-vous acheter la propriété " + caseATraiter.nomCase + "? (oui/non): ");
+            String choix = this.scanner.nextLine();
+            if (choix.equals("oui")) {
+                if (this.argentJoueur >= emplacement.prixPropriete) {
+                    caseATraiter.joueurProprietaire = this;
+                    this.argentJoueur = this.argentJoueur - emplacement.prixPropriete;
+                }
+            } else {
+                proposerAchat(listeJoueur, this, emplacement);
             }
-        } else {
-            proposerAchat(listeJoueur, this, emplacement);
         }
+
     }
 
     public void proposerAchat(ArrayList<Joueur> listeJoueur, Joueur joueur, Propriete emplacement) { // proposer l'achat
