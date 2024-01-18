@@ -2,22 +2,25 @@ package pkgMonopoly;
 
 import java.util.ArrayList;
 
-public class AllerPrison extends Case{
+public class AllerPrison extends Case {
 
     int indexCasePrison = 10;
 
-    public AllerPrison(int index){
+    public AllerPrison(int index) {
         super(index);
     }
 
     @Override
-    public void action(Joueur joueur, ArrayList<Case> plateau){
+    public void action(Joueur joueur, Plateau plateau, ArrayList<Case> listeCase, ArrayList<Carte> carteChance,
+            ArrayList<Carte> carteCommunaute, ArrayList<Joueur> listeJoueur) {
 
-        plateau.get(joueur.ancienneCase).enleverJoueur(joueur);
+        listeCase.get(joueur.ancienneCase).enleverJoueur(joueur);
 
         joueur.caseActuelle = 10;
         joueur.ancienneCase = joueur.caseActuelle;
 
-        plateau.get(joueur.caseActuelle).ajouterJoueur(joueur);
+        listeCase.get(joueur.caseActuelle).ajouterJoueur(joueur);
+
+        joueur.enPrison = true;
     }
 }

@@ -11,12 +11,13 @@ public class Depart extends Case {
         this.nomCase = nomPropriete;
     }
 
-    public int getArgentPassage(){
+    public int getArgentPassage() {
         return this.argentDePassage;
     }
 
     @Override
-    public void action(Joueur joueur, ArrayList<Case> plateau){
+    public void action(Joueur joueur, Plateau plateau, ArrayList<Case> listeCase, ArrayList<Carte> carteChance,
+            ArrayList<Carte> carteCommunaute, ArrayList<Joueur> listeJoueur) {
         System.out.println("Vous venez de passer par la case départ");
     }
 }

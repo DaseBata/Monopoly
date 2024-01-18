@@ -1,4 +1,5 @@
 package pkgMonopoly;
+
 import java.util.ArrayList;
 
 public abstract class Case {
@@ -13,33 +14,34 @@ public abstract class Case {
         this.numeroCase = numeroCase;
     }
 
-    public void ajouterJoueur(Joueur joueur){
+    public void ajouterJoueur(Joueur joueur) {
         listeJoueur.add(joueur);
     }
 
-    public void enleverJoueur(Joueur joueur){
+    public void enleverJoueur(Joueur joueur) {
         int i = 0;
-        while (i<listeJoueur.size()){
-            if(listeJoueur.get(i).equals(joueur)){
+        while (i < listeJoueur.size()) {
+            if (listeJoueur.get(i).equals(joueur)) {
                 listeJoueur.remove(i);
             }
             i++;
         }
     }
 
-    public abstract void action(Joueur joueur, ArrayList<Case> plateau);
+    public abstract void action(Joueur joueur, Plateau plateau, ArrayList<Case> listeCase, ArrayList<Carte> carteChance,
+            ArrayList<Carte> carteCommunaute, ArrayList<Joueur> listeJoueur);
 
     /*
-    public boolean contientJoueur(ArrayList<Joueur> listeJoueur, Joueur Joueur){
-
-        int i = 0;
-        while (i<listeJoueur.size()){
-            if(listeJoueur.get(i).equals(Joueur)){
-                return true;
-            }
-            i++;
-        }
-        return false;
-    }
-    */
+     * public boolean contientJoueur(ArrayList<Joueur> listeJoueur, Joueur Joueur){
+     *
+     * int i = 0;
+     * while (i<listeJoueur.size()){
+     * if(listeJoueur.get(i).equals(Joueur)){
+     * return true;
+     * }
+     * i++;
+     * }
+     * return false;
+     * }
+     */
 }
