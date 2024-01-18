@@ -6,12 +6,14 @@ public abstract class Case {
 
     public int numeroCase;
     ArrayList<Joueur> listeJoueur;
-    public String descriptifCase;
     public String nomCase;
+    public Joueur joueurProprietaire;
 
-    public Case(int numeroCase) {
+    public Case(int numeroCase, String nomCase) {
         this.listeJoueur = new ArrayList<>();
         this.numeroCase = numeroCase;
+        this.nomCase = nomCase;
+        this.joueurProprietaire = null;
     }
 
     public void ajouterJoueur(Joueur joueur) {

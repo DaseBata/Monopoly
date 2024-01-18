@@ -7,8 +7,7 @@ public class Depart extends Case {
     public int argentDePassage = 20000;
 
     public Depart(int index, String nomPropriete) {
-        super(index);
-        this.nomCase = nomPropriete;
+        super(index, nomPropriete);
     }
 
     public int getArgentPassage() {

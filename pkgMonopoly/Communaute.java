@@ -3,8 +3,8 @@ import java.util.ArrayList;
 
 public class Communaute extends Case {
 
-    public Communaute(int index) {
-        super(index);
+    public Communaute(int index, String nomCase) {
+        super(index, nomCase);
     }
 
     @Override

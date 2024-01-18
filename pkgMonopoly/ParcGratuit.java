@@ -4,9 +4,10 @@ import java.util.ArrayList;
 public class ParcGratuit extends Case {
 
     int montantParc;
+    String nomCase;
 
-    public ParcGratuit(int index) {
-        super(index);
+    public ParcGratuit(int index, String nomCase) {
+        super(index, nomCase);
         montantParc = 0;
     }
 

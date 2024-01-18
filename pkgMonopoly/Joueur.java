@@ -12,6 +12,7 @@ public class Joueur {
     public int ancienneCase;
     public int tourEnPrison;
     public Scanner scanner;
+    public int nbDoubleAffile;
 
     public Joueur(String nomJoueur) {
         this.nomJoueur = nomJoueur;
@@ -23,6 +24,7 @@ public class Joueur {
         this.compteurDouble = 0;
         this.tourEnPrison = 0;
         this.scanner = new Scanner(System.in);
+        this.nbDoubleAffile = 0;
     }
 
     public void sinscrire(String nomJoueur) {
@@ -61,13 +63,13 @@ public class Joueur {
         this.ancienneCase = caseActuelle;
     }
 
-    public void acheter(Propriete emplacement, ArrayList<Joueur> listeJoueur) {
+    public void acheter(Propriete emplacement, Case caseATraiter, ArrayList<Joueur> listeJoueur) {
         // acheter ?
         System.out.print("Voulez-vous acheter la propriété? (oui/non): ");
         String choix = this.scanner.nextLine();
         if (choix.equals("oui")) {
             if (this.argentJoueur >= emplacement.prixPropriete) {
-                emplacement.joueurProprietaire = this;
+                caseATraiter.joueurProprietaire = this;
                 this.argentJoueur = this.argentJoueur - emplacement.prixPropriete;
             }
         } else {
@@ -98,33 +100,49 @@ public class Joueur {
         }
     }
 
-    public void vendre(Propriete emplacement) {
+    public void vendre(Propriete emplacement, Case caseATraiter, int nbGare) {
 
         System.out.print("Voulez-vous vendre votre propriété? (oui/non): ");
         String choix = this.scanner.nextLine();
         if (choix.equals("oui")) {
-            emplacement.joueurProprietaire = null;
+            caseATraiter.joueurProprietaire = null;
             this.argentJoueur = this.argentJoueur + emplacement.prixPropriete; // revoir l'opération avec les maisons
         }
     }
 
-    public void paieTaxe(Propriete emplacement) {
+    public void paieTaxe(Propriete emplacement, int nbGare) {
         this.argentJoueur = this.argentJoueur - emplacement.prixPropriete; // revoir l'opération avec les maisons
     }
 
     public void tirerCarteChance(ArrayList<Carte> carteChance, ArrayList<Joueur> listeJoueur) {
         Random random = new Random();
-        int random1 = random.nextInt(2) + 0;
+        int random1 = random.nextInt(1) + 0;
 
         Carte carte = carteChance.get(random1);
-        carte.action(carte.typeCarte, carte.index, listeJoueur);
+        carte.action(this, carte.typeCarte, carte.index, listeJoueur);
     }
 
     public void tirerCarteCommunaute(ArrayList<Carte> carteCommunaute, ArrayList<Joueur> listeJoueur) {
         Random random = new Random();
-        int random1 = random.nextInt(2) + 0;
+        int random1 = random.nextInt(1) + 0;
 
         Carte carte = carteCommunaute.get(random1);
-        carte.action(carte.typeCarte, carte.index, listeJoueur);
+        carte.action(this, carte.typeCarte, carte.index, listeJoueur);
+    }
+
+    public int getNbGareJoueur(Joueur joueur, ArrayList<Case> listeCase){
+
+        int nombreGare = 0;
+
+        for( int i =0; i < listeCase.size(); i++){
+            Case caseATraiter = listeCase.get(i);
+            String nomATraiter = caseATraiter.nomCase.substring(0, 4);
+            if (nomATraiter.equals("Gare")){
+                if(caseATraiter.joueurProprietaire.equals(joueur)){
+                    nombreGare = nombreGare + 1;
+                }
+            }
+        }
+        return nombreGare;
     }
 }

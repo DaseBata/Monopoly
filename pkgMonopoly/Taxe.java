@@ -7,7 +7,7 @@ public class Taxe extends Case {
     int indexCasePrison = 20;
 
     public Taxe(int index, String nomCase, int prixCase) {
-        super(index);
+        super(index, nomCase);
         coutTaxe = prixCase;
     }
 

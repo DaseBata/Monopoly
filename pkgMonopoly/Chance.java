@@ -3,8 +3,8 @@ import java.util.ArrayList;
 
 public class Chance extends Case {
 
-    public Chance(int index) {
-        super(index);
+    public Chance(int index, String nomCase) {
+        super(index, nomCase);
     }
 
     @Override

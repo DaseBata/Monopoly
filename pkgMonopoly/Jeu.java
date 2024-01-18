@@ -21,6 +21,7 @@ public class Jeu {
     int ordreDeJeu = 0;
     int casesAAvancer;
     Case caseATraiter;
+    int indexAllerPrison = 30;
 
     Joueur joueur1 = new Joueur("B");
     Joueur joueur2 = new Joueur("V");
@@ -63,10 +64,23 @@ public class Jeu {
             }
         } else { // si le joueur n'est pas en prison
             casesAAvancer = joueurActuel.lancerDes();
-            joueurActuel.deplacer(casesAAvancer, plateau.listeCase);
-            caseATraiter = plateau.getCase(joueurActuel.caseActuelle);
-            caseATraiter.action(joueurActuel, plateau, plateau.listeCase, carteChance, carteCommunaute,
+            if (joueurActuel.doubleDes == true){
+                joueurActuel.nbDoubleAffile = joueurActuel.nbDoubleAffile + 1;
+                if(joueurActuel.nbDoubleAffile == 3){
+                    casesAAvancer = indexAllerPrison - joueurActuel.caseActuelle;
+                }
+            } else {
+                joueurActuel.deplacer(casesAAvancer, plateau.listeCase);
+                caseATraiter = plateau.getCase(joueurActuel.caseActuelle);
+                caseATraiter.action(joueurActuel, plateau, plateau.listeCase, carteChance, carteCommunaute,
                     listeJoueur);
+            }
+
+            ordreDeJeu = ordreDeJeu + 1;
+
+            if(joueurActuel.argentJoueur < 0){
+
+            }
         }
 
         // FAIT :
@@ -74,9 +88,10 @@ public class Jeu {
         // acheter ?
         // vendre ?
         // payer impot ?
+        // gares
 
         // A FAIRE :
-        // Les gares
+
         // Défaite des joueurs
         // Tirer carte chance et faire son effet (créer les cartes)
         // Tirer carte communauté et faire son effet (créer les cartes)

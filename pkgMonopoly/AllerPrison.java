@@ -6,8 +6,8 @@ public class AllerPrison extends Case {
 
     int indexCasePrison = 10;
 
-    public AllerPrison(int index) {
-        super(index);
+    public AllerPrison(int index, String nomCase) {
+        super(index, nomCase);
     }
 
     @Override
