@@ -5,7 +5,7 @@ public class Joueur {
 
     public boolean enPrison;
     public String nomJoueur;
-    public int argentJoueur;
+    public double argentJoueur;
     public int caseActuelle;
     public boolean doubleDes;
     public int compteurDouble;
@@ -25,10 +25,6 @@ public class Joueur {
         this.tourEnPrison = 0;
         this.scanner = new Scanner(System.in);
         this.nbDoubleAffile = 0;
-    }
-
-    public void sinscrire(String nomJoueur) {
-
     }
 
     public int lancerDes() {
@@ -80,11 +76,8 @@ public class Joueur {
 
     }
 
-    public void proposerAchat(ArrayList<Joueur> listeJoueur, Joueur joueur, Propriete emplacement) { // proposer l'achat
-                                                                                                     // aux autres
-                                                                                                     // joueurs en cas
-                                                                                                     // de refus d'achat
-                                                                                                     // du premier
+    public void proposerAchat(ArrayList<Joueur> listeJoueur, Joueur joueur, Propriete emplacement) {
+
         Joueur joueurAcheteur;
         for (int i = 0; i < listeJoueur.size(); i++) {
             joueurAcheteur = listeJoueur.get(i);
@@ -103,18 +96,18 @@ public class Joueur {
         }
     }
 
-    public void vendre(Propriete emplacement, Case caseATraiter, int nbGare) {
+    public void vendre(Propriete emplacement, Case caseATraiter) {
 
         System.out.print("Voulez-vous vendre votre propriété? (oui/non): ");
         String choix = this.scanner.nextLine();
         if (choix.equals("oui")) {
             caseATraiter.joueurProprietaire = null;
-            this.argentJoueur = this.argentJoueur + emplacement.prixPropriete; // revoir l'opération avec les maisons
+            this.argentJoueur = this.argentJoueur + emplacement.prixPropriete ;
         }
     }
 
-    public void paieTaxe(Propriete emplacement, int nbGare) {
-        this.argentJoueur = this.argentJoueur - emplacement.prixPropriete; // revoir l'opération avec les maisons
+    public void paieTaxe(Propriete emplacement, int nbPropriete) {
+        this.argentJoueur = this.argentJoueur - (emplacement.prixPropriete * (1 + (nbPropriete * 0.25))); // revoir l'opération avec les maisons
     }
 
     public void tirerCarteChance(ArrayList<Carte> carteChance, ArrayList<Joueur> listeJoueur) {

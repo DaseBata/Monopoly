@@ -21,8 +21,7 @@ public class Gare extends Propriete{
             joueur.acheter(this,(Case)this, listeJoueur);
         } else if (joueurProprietaire.equals(joueur)) { // propriété appartient au joueur
             // vendre ?
-
-            joueur.vendre(this, (Case)this, nbGare);
+            joueur.vendre(this, (Case)this);
         } else { // joueur doit payer la taxe de passage
             joueur.paieTaxe(this, nbGare);
         }

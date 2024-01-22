@@ -2,7 +2,6 @@ package pkgMonopoly;
 import java.util.*;
 
 public class Jeu {
-
     public static Jeu instance;
     private ArrayList<Joueur> listeJoueur;
     private Plateau plateau;
@@ -34,73 +33,62 @@ public class Jeu {
         ArrayList<Carte> carteChance = this.initialiserCarteChance();
         ArrayList<Carte> carteCommunaute = this.initialiserCarteCommunaute();
 
+        Joueur joueurGagnant = null;
+
         /*
-        while (!fin) {
+        while (listeJoueur.size() > 1) { //Un joueur gagne
+            Iterator<Joueur> iterator = listeJoueur.iterator();
 
-            Joueur joueurActuel = listeJoueur.get(ordreDeJeu);
+            while (iterator.hasNext() && listeJoueur.size() > 1) {
+                Joueur joueurActuel = iterator.next();
 
-            if ((plateau.getCase(joueurActuel.caseActuelle).nomCase.equals("Prison"))
-                    && (joueurActuel.enPrison)) { // Le joueur est en prison non visiteur
-                casesAAvancer = joueurActuel.lancerDes();
-                if (joueurActuel.doubleDes) { // en prison fait un double, sort
-                    joueurActuel.enPrison = false;
-                    joueurActuel.doubleDes = false;
-                    joueurActuel.tourEnPrison = 0;
-                } else { // prend un tour de plus en prison
-                    joueurActuel.tourEnPrison = joueurActuel.tourEnPrison + 1;
-                }
-
-                if (joueurActuel.tourEnPrison == 3) { // si 3 tours en prison, sort et paie une amende
-                    joueurActuel.tourEnPrison = 0;
-                    joueurActuel.enPrison = false;
-                    joueurActuel.argentJoueur = joueurActuel.argentJoueur - 5000;
-                    plateau.ajoutParc(5000);
-                }
-            } else { // si le joueur n'est pas en prison
-                casesAAvancer = joueurActuel.lancerDes();
-                if (joueurActuel.doubleDes){
-                    joueurActuel.nbDoubleAffile = joueurActuel.nbDoubleAffile + 1;
-                    if(joueurActuel.nbDoubleAffile == 3){
-                        casesAAvancer = indexAllerPrison - joueurActuel.caseActuelle;
+                if ((plateau.getCase(joueurActuel.caseActuelle).nomCase.equals("Prison"))
+                        && (joueurActuel.enPrison == true)) { // Le joueur est en prison non visiteur
+                    casesAAvancer = joueurActuel.lancerDes();
+                    if (joueurActuel.doubleDes = true) { // en prison fait un double, sort
+                        joueurActuel.enPrison = false;
+                        joueurActuel.doubleDes = false;
+                        joueurActuel.tourEnPrison = 0;
+                    } else { // prend un tour de plus en prison
+                        joueurActuel.tourEnPrison = joueurActuel.tourEnPrison + 1;
                     }
-                } else {
-                    joueurActuel.deplacer(casesAAvancer, plateau.getListeCase());
-                    caseATraiter = plateau.getCase(joueurActuel.caseActuelle);
-                    caseATraiter.action(joueurActuel, plateau, plateau.getListeCase(), carteChance, carteCommunaute,
-                        listeJoueur);
-                }
 
-                ordreDeJeu = ordreDeJeu + 1;
+                    if (joueurActuel.tourEnPrison == 3) { // si 3 tours en prison, sort et paie une amende
+                        joueurActuel.tourEnPrison = 0;
+                        joueurActuel.enPrison = false;
+                        joueurActuel.argentJoueur = joueurActuel.argentJoueur - 5000;
+                        plateau.ajoutParc(5000);
+                    }
+                } else { // si le joueur n'est pas en prison
+                    casesAAvancer = joueurActuel.lancerDes();
+
+                    do{
+                        if (joueurActuel.doubleDes == true){
+                            joueurActuel.nbDoubleAffile = joueurActuel.nbDoubleAffile + 1;
+                            if(joueurActuel.nbDoubleAffile == 3){
+                                casesAAvancer = indexAllerPrison - joueurActuel.caseActuelle;
+                                joueurActuel.nbDoubleAffile = 0;
+                                joueurActuel.doubleDes = false;
+                            }
+                        }
+                        joueurActuel.deplacer(casesAAvancer, plateau.getListeCase());
+                        caseATraiter = plateau.getCase(joueurActuel.caseActuelle);
+                        caseATraiter.action(joueurActuel, plateau, plateau.getListeCase(), carteChance, carteCommunaute, listeJoueur);
+
+                    } while (joueurActuel.doubleDes == false);
+                }
 
                 if(joueurActuel.argentJoueur < 0){
-
+                    iterator.remove();
                 }
 
+                if (listeJoueur.size() == 1) {
+                    joueurGagnant = listeJoueur.get(0);
+                }
             }
-            */
-
-
-
-            // FAIT :
-            // Propriete
-            // acheter ?
-            // vendre ?
-            // payer impot ?
-            // gares
-
-            // A FAIRE :
-
-            // Défaite des joueurs
-            // Tirer carte chance et faire son effet (créer les cartes)
-            // Tirer carte communauté et faire son effet (créer les cartes)
-            // Maisons liste ? Attribut de propriété
-            // Hotels
-
-
-    }
-
-
-    public void fin() {
+        }
+        System.out.println("" + joueurGagnant.nomJoueur);
+        */
 
     }
 
