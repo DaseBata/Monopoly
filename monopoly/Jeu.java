@@ -1,4 +1,6 @@
-package pkgMonopoly;
+package monopoly;
+import monopoly.cases.Case;
+
 import java.util.*;
 
 public class Jeu {
@@ -22,6 +24,7 @@ public class Jeu {
         this.plateau = new Plateau();
         this.plateau.initialiserPlateau();
         this.plateau.placerJoueurs(joueur1, joueur2, joueur3, joueur4, 0);
+
         this.plateau.getIHM().nouveauLog(joueur1.nomJoueur + ", " + joueur2.nomJoueur + ", " + joueur3.nomJoueur + ", " + joueur4.nomJoueur + " sont arrivés dans la partie");
 
 
@@ -132,4 +135,21 @@ public class Jeu {
         return listeCarteCommunaute;
     }
 
+    public ArrayList<String> getNomsJoueurs()
+    {
+        ArrayList<String> noms = new ArrayList<>();
+        for (Joueur joueur : this.listeJoueur)
+        {
+            noms.add(joueur.getNomJoueur());
+        }
+        return noms;
+    }
+
+    public Plateau getPlateau() {
+        return plateau;
+    }
+
+    public ArrayList<Joueur> getListeJoueur() {
+        return listeJoueur;
+    }
 }

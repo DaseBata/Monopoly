@@ -1,4 +1,8 @@
-package pkgMonopoly;
+package monopoly.cases;
+import monopoly.Carte;
+import monopoly.Joueur;
+import monopoly.Plateau;
+
 import java.util.ArrayList;
 
 public class Propriete extends Case {
@@ -7,14 +11,14 @@ public class Propriete extends Case {
     public String nomPropriete;
     public Joueur joueurProprietaire;
 
-    public Propriete(int index, String nomPropriete, int prixPropriete) {
-        super(index, nomPropriete);
+    public Propriete(int index, String nomPropriete, int prixPropriete, int coordX, int coordY) {
+        super(index, nomPropriete, coordX, coordY);
         this.prixPropriete = prixPropriete;
     }
 
     @Override
     public void action(Joueur joueur, Plateau plateau, ArrayList<Case> listeCase, ArrayList<Carte> carteChance,
-            ArrayList<Carte> carteCommunaute, ArrayList<Joueur> listeJoueur) {
+                       ArrayList<Carte> carteCommunaute, ArrayList<Joueur> listeJoueur) {
 
         int nbPropriete = 1;
         if (joueurProprietaire == null) { // propriété à personne

@@ -1,4 +1,9 @@
-package pkgMonopoly;
+package monopoly;
+import monopoly.cases.Case;
+import monopoly.cases.Depart;
+import monopoly.cases.Propriete;
+
+import java.awt.*;
 import java.util.*;
 
 public class Joueur {
@@ -13,6 +18,7 @@ public class Joueur {
     public int tourEnPrison;
     public Scanner scanner;
     public int nbDoubleAffile;
+    public Pion pion;
 
     public Joueur(String nomJoueur) {
         this.nomJoueur = nomJoueur;
@@ -25,6 +31,7 @@ public class Joueur {
         this.tourEnPrison = 0;
         this.scanner = new Scanner(System.in);
         this.nbDoubleAffile = 0;
+        this.pion = new Pion(0, 0, Color.RED);
     }
 
     public int lancerDes() {
@@ -42,12 +49,14 @@ public class Joueur {
         return random1 + random2;
     }
 
-    public void deplacer(int casesAAvancer, ArrayList<Case> listeCase) {
+    public void deplacer(int casesAAvancer) {
+
+        ArrayList<Case> listeCase = Jeu.getInstance().getPlateau().getListeCase();
 
         // regarde si la prochaine case passe devant le départ
         if ((this.caseActuelle + casesAAvancer) % listeCase.size() <= this.caseActuelle) {
             // si oui on fait un "nouveau" depart et on gagne de l'argent
-            Depart passageDepart = new Depart(0, "Depart");
+            Depart passageDepart = new Depart(0, "Depart", 50, 50); // ?.?????????
             passageDepart.getArgentPassage();
         }
 
@@ -55,6 +64,8 @@ public class Joueur {
 
         listeCase.get(this.ancienneCase).enleverJoueur(this);
         listeCase.get(this.caseActuelle).ajouterJoueur(this);
+
+        Jeu.getInstance().getPlateau().getIHM().getPanelDroite().rafraichirPlateau();
 
         this.ancienneCase = caseActuelle;
     }
@@ -141,4 +152,20 @@ public class Joueur {
         }
         return nombreGare;
     }
+
+    public String getNomJoueur()
+    {
+        return this.nomJoueur;
+    }
+
+    public double getArgentJoueur()
+    {
+        return this.argentJoueur;
+    }
+
+    public Pion getPion()
+    {
+        return this.pion;
+    }
+
 }

@@ -1,4 +1,4 @@
-package pkgMonopoly;
+package monopoly;
 import java.util.ArrayList;
 
 public class Carte {

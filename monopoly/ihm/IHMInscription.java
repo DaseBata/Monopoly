@@ -1,9 +1,9 @@
-package pkgMonopoly.IHM;
+package monopoly.ihm;
 import java.awt.*;
 import javax.swing.*;
 
-import pkgMonopoly.Jeu;
-import pkgMonopoly.Joueur;
+import monopoly.Jeu;
+import monopoly.Joueur;
 
 public class IHMInscription extends JFrame {
 
@@ -82,9 +82,13 @@ public class IHMInscription extends JFrame {
         else {
 
             Joueur joueur1 = new Joueur(nomJoueur1.getText());
+            joueur1.getPion().setCouleur(Color.RED);
             Joueur joueur2 = new Joueur(nomJoueur2.getText());
+            joueur2.getPion().setCouleur(Color.GREEN);
             Joueur joueur3 = new Joueur(nomJoueur3.getText());
+            joueur3.getPion().setCouleur(Color.BLUE);
             Joueur joueur4 = new Joueur(nomJoueur4.getText());
+            joueur4.getPion().setCouleur(Color.YELLOW);
 
             this.setVisible(false);
             this.dispose();

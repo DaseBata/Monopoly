@@ -1,4 +1,8 @@
-package pkgMonopoly;
+package monopoly.cases;
+
+import monopoly.Carte;
+import monopoly.Joueur;
+import monopoly.Plateau;
 
 import java.util.ArrayList;
 
@@ -6,13 +10,13 @@ public class AllerPrison extends Case {
 
     int indexCasePrison = 10;
 
-    public AllerPrison(int index, String nomCase) {
-        super(index, nomCase);
+    public AllerPrison(int index, String nomCase, int coordX, int coordY) {
+        super(index, nomCase, coordX, coordY);
     }
 
     @Override
     public void action(Joueur joueur, Plateau plateau, ArrayList<Case> listeCase, ArrayList<Carte> carteChance,
-            ArrayList<Carte> carteCommunaute, ArrayList<Joueur> listeJoueur) {
+                       ArrayList<Carte> carteCommunaute, ArrayList<Joueur> listeJoueur) {
 
         listeCase.get(joueur.ancienneCase).enleverJoueur(joueur);
 

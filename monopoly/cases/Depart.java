@@ -1,4 +1,8 @@
-package pkgMonopoly;
+package monopoly.cases;
+import monopoly.Carte;
+import monopoly.Joueur;
+import monopoly.Plateau;
+
 import java.util.ArrayList;
 
 public class Depart extends Case {
@@ -6,8 +10,8 @@ public class Depart extends Case {
     public String nomCase;
     public int argentDePassage = 20000;
 
-    public Depart(int index, String nomPropriete) {
-        super(index, nomPropriete);
+    public Depart(int index, String nomCase, int coordX, int coordY) {
+        super(index, nomCase, coordX, coordY);
     }
 
     public int getArgentPassage() {
@@ -16,7 +20,7 @@ public class Depart extends Case {
 
     @Override
     public void action(Joueur joueur, Plateau plateau, ArrayList<Case> listeCase, ArrayList<Carte> carteChance,
-            ArrayList<Carte> carteCommunaute, ArrayList<Joueur> listeJoueur) {
+                       ArrayList<Carte> carteCommunaute, ArrayList<Joueur> listeJoueur) {
         System.out.println("Vous venez de passer par la case départ");
     }
 }

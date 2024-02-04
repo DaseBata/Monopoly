@@ -1,19 +1,28 @@
-package pkgMonopoly;
+package monopoly.cases;
+
+import monopoly.Carte;
+import monopoly.Joueur;
+import monopoly.Plateau;
 
 import java.util.ArrayList;
 
 public abstract class Case {
 
     public int numeroCase;
-    ArrayList<Joueur> listeJoueur;
+    private ArrayList<Joueur> listeJoueur;
     public String nomCase;
     public Joueur joueurProprietaire;
 
-    public Case(int numeroCase, String nomCase) {
+    private int coordoneePlateauX;
+    private int getCoordoneePlateauY;
+
+    public Case(int numeroCase, String nomCase, int coordX, int coordY) {
         this.listeJoueur = new ArrayList<>();
         this.numeroCase = numeroCase;
         this.nomCase = nomCase;
         this.joueurProprietaire = null;
+        this.coordoneePlateauX = coordX;
+        this.getCoordoneePlateauY = coordY;
     }
 
     public void ajouterJoueur(Joueur joueur) {
@@ -30,8 +39,24 @@ public abstract class Case {
         }
     }
 
+    public int getCoordoneePlateauX()
+    {
+        return this.coordoneePlateauX;
+    }
+
+    public int getCoordoneePlateauY()
+    {
+        return this.getCoordoneePlateauY;
+    }
+
+    public ArrayList<Joueur> getListeJoueur()
+    {
+        return this.listeJoueur;
+    }
+
     public abstract void action(Joueur joueur, Plateau plateau, ArrayList<Case> listeCase, ArrayList<Carte> carteChance,
-            ArrayList<Carte> carteCommunaute, ArrayList<Joueur> listeJoueur);
+                                ArrayList<Carte> carteCommunaute, ArrayList<Joueur> listeJoueur);
+
 
     /*
      * public boolean contientJoueur(ArrayList<Joueur> listeJoueur, Joueur Joueur){
