@@ -1,8 +1,11 @@
 package monopoly;
 
+import monopoly.cases.Case;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Fond extends JPanel {
 
@@ -19,12 +22,12 @@ public class Fond extends JPanel {
         super.paintComponent(g);
         g.drawImage(imageDeFond, 0, 0, getWidth(), getHeight(), this);
 
-        for (Joueur joueur : Jeu.getInstance().getListeJoueur()) {
-            g.setColor(joueur.getPion().getCouleur());
-            Pion pionJoueur = joueur.getPion();
-            pionJoueur.setX(Jeu.getInstance().getPlateau().getCase(joueur.caseActuelle).getCoordoneePlateauX());
-            pionJoueur.setY(Jeu.getInstance().getPlateau().getCase(joueur.caseActuelle).getCoordoneePlateauY());
-            g.fillOval(pionJoueur.getX(), pionJoueur.getY(), pionJoueur.getDiametre() * 2, pionJoueur.getDiametre() * 2);
+        for(Joueur joueur: Jeu.getInstance().getListeJoueur())
+        {
+            Pion pion = joueur.getPion();
+            g.setColor(pion.getCouleur());
+            g.fillOval(pion.getX(), pion.getY(), 20, 20);
+
         }
     }
 

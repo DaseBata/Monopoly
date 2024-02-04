@@ -54,10 +54,9 @@ public class Joueur {
         ArrayList<Case> listeCase = Jeu.getInstance().getPlateau().getListeCase();
 
         // regarde si la prochaine case passe devant le départ
-        if ((this.caseActuelle + casesAAvancer) % listeCase.size() <= this.caseActuelle) {
-            // si oui on fait un "nouveau" depart et on gagne de l'argent
-            Depart passageDepart = new Depart(0, "Depart", 50, 50); // ?.?????????
-            passageDepart.getArgentPassage();
+        if ((this.caseActuelle + casesAAvancer) % listeCase.size() <= this.caseActuelle)
+        {
+            this.ajouterArgent(20000);
         }
 
         this.caseActuelle = (this.caseActuelle + casesAAvancer) % listeCase.size();
@@ -65,6 +64,7 @@ public class Joueur {
         listeCase.get(this.ancienneCase).enleverJoueur(this);
         listeCase.get(this.caseActuelle).ajouterJoueur(this);
 
+        this.pion.updatePositionPion(caseActuelle);
         Jeu.getInstance().getPlateau().getIHM().getPanelDroite().rafraichirPlateau();
 
         this.ancienneCase = caseActuelle;
@@ -161,6 +161,21 @@ public class Joueur {
     public double getArgentJoueur()
     {
         return this.argentJoueur;
+    }
+
+    public void ajouterArgent(int somme)
+    {
+        this.argentJoueur = this.argentJoueur + somme;
+        Jeu.getInstance().getPlateau().getIHM().getComposantArgentJoueur().updateLabels();
+    }
+
+    public void deduireArgent(int sommeADeduire)
+    {
+        if(this.argentJoueur <= 0) {
+            this.argentJoueur = this.argentJoueur - sommeADeduire;
+            Jeu.getInstance().getPlateau().getIHM().getComposantArgentJoueur().updateLabels();
+        }
+
     }
 
     public Pion getPion()

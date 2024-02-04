@@ -54,6 +54,7 @@ public abstract class Case {
         return this.listeJoueur;
     }
 
+
     public abstract void action(Joueur joueur, Plateau plateau, ArrayList<Case> listeCase, ArrayList<Carte> carteChance,
                                 ArrayList<Carte> carteCommunaute, ArrayList<Joueur> listeJoueur);
 
