@@ -1,12 +1,16 @@
 package monopoly;
 import monopoly.cases.Case;
+import monopoly.tools.Logger;
 
 import java.util.*;
 
 public class Jeu {
     public static Jeu instance;
     private ArrayList<Joueur> listeJoueur;
+    private ArrayList<Carte> listeCarteChance;
+    private ArrayList<Carte> listeCaisseCommunnaute;
     private Plateau plateau;
+    private int numeroJoueurActuel;
 
     // Singleton
     public static Jeu getInstance()
@@ -20,21 +24,26 @@ public class Jeu {
     public void initialiserJeu(Joueur joueur1, Joueur joueur2, Joueur joueur3, Joueur joueur4)
     {
 
+        this.listeCarteChance = this.initialiserCarteChance();
+        this.listeCaisseCommunnaute = this.initialiserCarteCommunaute();
+
         this.listeJoueur = this.initialiserJoueur(joueur1, joueur2, joueur3, joueur4);
         this.plateau = new Plateau();
         this.plateau.initialiserPlateau();
         this.plateau.placerJoueurs(joueur1, joueur2, joueur3, joueur4, 0);
 
-        this.plateau.getIHM().nouveauLog(joueur1.nomJoueur + ", " + joueur2.nomJoueur + ", " + joueur3.nomJoueur + ", " + joueur4.nomJoueur + " sont arrivés dans la partie");
+        Logger.printLog(joueur1.nomJoueur + ", " + joueur2.nomJoueur + ", " + joueur3.nomJoueur + ", " + joueur4.nomJoueur + " sont arrivés dans la partie");
+
+
+        // Initialisation premier tour
+        this.numeroJoueurActuel = 0;
+        this.plateau.getIHM().getPanelGauche().setJoueur(this.listeJoueur.get(numeroJoueurActuel));
 
 
         boolean fin = false;
-        int ordreDeJeu = 0;
         int casesAAvancer;
         Case caseATraiter;
         int indexAllerPrison = 30;
-        ArrayList<Carte> carteChance = this.initialiserCarteChance();
-        ArrayList<Carte> carteCommunaute = this.initialiserCarteCommunaute();
 
         Joueur joueurGagnant = null;
 
@@ -135,14 +144,11 @@ public class Jeu {
         return listeCarteCommunaute;
     }
 
-    public ArrayList<String> getNomsJoueurs()
+    public void prochainTour()
     {
-        ArrayList<String> noms = new ArrayList<>();
-        for (Joueur joueur : this.listeJoueur)
-        {
-            noms.add(joueur.getNomJoueur());
-        }
-        return noms;
+        this.numeroJoueurActuel = (this.numeroJoueurActuel + 1) % 4;
+        this.plateau.getIHM().getPanelGauche().setJoueur(this.listeJoueur.get(numeroJoueurActuel));
+        Logger.printLog("C'est au tour de : " + this.listeJoueur.get(numeroJoueurActuel).getNomJoueur() + " de jouer");
     }
 
     public Plateau getPlateau() {

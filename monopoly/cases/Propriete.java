@@ -16,6 +16,10 @@ public class Propriete extends Case {
         this.prixPropriete = prixPropriete;
     }
 
+    public int getPrixPropriete() {
+        return this.prixPropriete;
+    }
+
     @Override
     public void action(Joueur joueur, Plateau plateau, ArrayList<Case> listeCase, ArrayList<Carte> carteChance,
                        ArrayList<Carte> carteCommunaute, ArrayList<Joueur> listeJoueur) {

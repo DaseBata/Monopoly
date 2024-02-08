@@ -2,6 +2,7 @@ package monopoly;
 import monopoly.cases.Case;
 import monopoly.cases.Depart;
 import monopoly.cases.Propriete;
+import monopoly.tools.Logger;
 
 import java.awt.*;
 import java.util.*;
@@ -34,19 +35,26 @@ public class Joueur {
         this.pion = new Pion(0, 0, Color.RED);
     }
 
-    public int lancerDes() {
+    public int lancerDes()
+    {
 
         Random random = new Random();
 
         int random1 = random.nextInt(6) + 1;
         int random2 = random.nextInt(6) + 1;
 
+        int resultat = random1 + random2;
+
         if (random1 == random2) {
             this.doubleDes = true;
             this.compteurDouble = this.compteurDouble + 1;
         }
 
-        return random1 + random2;
+
+        Logger.printLog(this.getNomJoueur() + " a lancé les dés, résultat : " + resultat);
+        this.deplacer(resultat);
+
+        return resultat;
     }
 
     public void deplacer(int casesAAvancer) {
@@ -65,7 +73,9 @@ public class Joueur {
         listeCase.get(this.caseActuelle).ajouterJoueur(this);
 
         this.pion.updatePositionPion(caseActuelle);
+
         Jeu.getInstance().getPlateau().getIHM().getPanelDroite().rafraichirPlateau();
+        Logger.printLog("Le joueur : " + this.getNomJoueur() + ", est arrivé sur la case : " + Jeu.getInstance().getPlateau().getCase(caseActuelle).getNomCase());
 
         this.ancienneCase = caseActuelle;
     }
@@ -84,6 +94,41 @@ public class Joueur {
                 proposerAchat(listeJoueur, this, emplacement);
             }
         }
+
+    }
+
+    public void achatPropriete()
+    {
+        if(this.getCaseActuelle() instanceof Propriete)
+        {
+            if(this.getCaseActuelle().getJoueurProprietaire() == null) // pas de proprio
+            {
+                if(this.argentJoueur - ((Propriete) this.getCaseActuelle()).getPrixPropriete() > 0) // assez d'argent ?
+                {
+                    this.deduireArgent(((Propriete) this.getCaseActuelle()).getPrixPropriete());
+                    Logger.printLog(this.getNomJoueur() + " a acheté la propriété : " + this.getCaseActuelle().getNomCase() + " pour : " + ((Propriete) this.getCaseActuelle()).getPrixPropriete() + "$");
+                }
+                else
+                {
+                    Logger.printLog("Vous n'avez pas assez d'argent");
+                }
+            }
+            else
+            {
+                Logger.printLog("Cette case appartient déjà au joueur : " + this.getCaseActuelle());
+                this.payerProprietaire();
+            }
+        }
+    }
+
+    public void payerProprietaire()
+    {
+        Propriete caseActuelle = (Propriete) this.getCaseActuelle();
+        Joueur proprietaire = caseActuelle.getJoueurProprietaire();
+        int prixApayer = caseActuelle.getPrixPropriete();
+
+        this.deduireArgent(prixApayer);
+        proprietaire.ajouterArgent(prixApayer);
 
     }
 
@@ -167,20 +212,24 @@ public class Joueur {
     {
         this.argentJoueur = this.argentJoueur + somme;
         Jeu.getInstance().getPlateau().getIHM().getComposantArgentJoueur().updateLabels();
+        Logger.printLog("Le joueur :" + this.getNomJoueur() + ", a reçu " + somme + "$");
     }
 
     public void deduireArgent(int sommeADeduire)
     {
-        if(this.argentJoueur <= 0) {
-            this.argentJoueur = this.argentJoueur - sommeADeduire;
-            Jeu.getInstance().getPlateau().getIHM().getComposantArgentJoueur().updateLabels();
-        }
-
+        this.argentJoueur = this.argentJoueur - sommeADeduire;
+        Jeu.getInstance().getPlateau().getIHM().getComposantArgentJoueur().updateLabels();
+        Logger.printLog("Le joueur :" + this.getNomJoueur() + ", a perdu " + sommeADeduire + "$");
     }
 
     public Pion getPion()
     {
         return this.pion;
+    }
+
+    public Case getCaseActuelle()
+    {
+        return Jeu.getInstance().getPlateau().getCase(this.caseActuelle);
     }
 
 }

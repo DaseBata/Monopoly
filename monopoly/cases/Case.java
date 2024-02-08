@@ -49,10 +49,14 @@ public abstract class Case {
         return this.getCoordoneePlateauY;
     }
 
+    public String getNomCase() { return this.nomCase; }
+
     public ArrayList<Joueur> getListeJoueur()
     {
         return this.listeJoueur;
     }
+
+    public Joueur getJoueurProprietaire() { return this.joueurProprietaire; }
 
 
     public abstract void action(Joueur joueur, Plateau plateau, ArrayList<Case> listeCase, ArrayList<Carte> carteChance,
