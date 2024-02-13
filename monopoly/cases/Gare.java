@@ -1,6 +1,7 @@
 package monopoly.cases;
 
 import monopoly.*;
+import monopoly.cartes.Carte;
 
 import java.util.ArrayList;
 

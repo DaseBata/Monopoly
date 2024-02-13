@@ -1,4 +1,5 @@
 package monopoly;
+import monopoly.cartes.Carte;
 import monopoly.cases.Case;
 import monopoly.cases.Depart;
 import monopoly.cases.Propriete;
@@ -65,6 +66,7 @@ public class Joueur {
         if ((this.caseActuelle + casesAAvancer) % listeCase.size() <= this.caseActuelle)
         {
             this.ajouterArgent(20000);
+            Logger.printLog(this.getNomJoueur() + " est repassé par la case Départ et empoche 20 000$");
         }
 
         this.caseActuelle = (this.caseActuelle + casesAAvancer) % listeCase.size();
@@ -76,6 +78,29 @@ public class Joueur {
 
         Jeu.getInstance().getPlateau().getIHM().getPanelDroite().rafraichirPlateau();
         Logger.printLog("Le joueur : " + this.getNomJoueur() + ", est arrivé sur la case : " + Jeu.getInstance().getPlateau().getCase(caseActuelle).getNomCase());
+
+        if(this.getCaseActuelle() instanceof Propriete)
+        {
+
+            if(this.getCaseActuelle().getJoueurProprietaire() == null)
+            {
+                Logger.printLog("Cette propriété n'appartient à aucun joueur, vous pouvez l'acheter.");
+                Jeu.getInstance().getPlateau().getIHM().getPanelGauche().activerBoutonAchat(true); // On peut acheter
+                return;
+            }
+            if(this.getCaseActuelle().getJoueurProprietaire() == this)
+            {
+                Logger.printLog("Vous possédez déjà cette propriété.");
+                Jeu.getInstance().getPlateau().getIHM().getPanelGauche().activerBoutonAchat(false);
+                return;
+            }
+            if(this.getCaseActuelle().getJoueurProprietaire() != this)
+            {
+                Logger.printLog("Cette propriété appartient déjà au joueur : " + this.getCaseActuelle().getJoueurProprietaire().getNomJoueur());
+                this.payerProprietaire();
+                return;
+            }
+        }
 
         this.ancienneCase = caseActuelle;
     }
@@ -91,7 +116,7 @@ public class Joueur {
                     this.argentJoueur = this.argentJoueur - emplacement.prixPropriete;
                 }
             } else {
-                proposerAchat(listeJoueur, this, emplacement);
+                //proposerAchat(listeJoueur, this, emplacement);
             }
         }
 
@@ -99,26 +124,19 @@ public class Joueur {
 
     public void achatPropriete()
     {
-        if(this.getCaseActuelle() instanceof Propriete)
+        if(this.argentJoueur - ((Propriete) this.getCaseActuelle()).getPrixPropriete() > 0) // assez d'argent ?
         {
-            if(this.getCaseActuelle().getJoueurProprietaire() == null) // pas de proprio
-            {
-                if(this.argentJoueur - ((Propriete) this.getCaseActuelle()).getPrixPropriete() > 0) // assez d'argent ?
-                {
-                    this.deduireArgent(((Propriete) this.getCaseActuelle()).getPrixPropriete());
-                    Logger.printLog(this.getNomJoueur() + " a acheté la propriété : " + this.getCaseActuelle().getNomCase() + " pour : " + ((Propriete) this.getCaseActuelle()).getPrixPropriete() + "$");
-                }
-                else
-                {
-                    Logger.printLog("Vous n'avez pas assez d'argent");
-                }
-            }
-            else
-            {
-                Logger.printLog("Cette case appartient déjà au joueur : " + this.getCaseActuelle());
-                this.payerProprietaire();
-            }
+            this.deduireArgent(((Propriete) this.getCaseActuelle()).getPrixPropriete());
+            Logger.printLog(this.getNomJoueur() + " a acheté la propriété : " + this.getCaseActuelle().getNomCase() + " pour : " + ((Propriete) this.getCaseActuelle()).getPrixPropriete() + "$");
+            Jeu.getInstance().getPlateau().getIHM().getPanelGauche().activerBoutonAchat(false);
         }
+        else
+        {
+            Logger.printLog("Vous n'avez pas assez d'argent pour acheter cette propriété");
+            Jeu.getInstance().getPlateau().getIHM().getPanelGauche().activerBoutonAchat(false);
+
+        }
+
     }
 
     public void payerProprietaire()
@@ -130,26 +148,6 @@ public class Joueur {
         this.deduireArgent(prixApayer);
         proprietaire.ajouterArgent(prixApayer);
 
-    }
-
-    public void proposerAchat(ArrayList<Joueur> listeJoueur, Joueur joueur, Propriete emplacement) {
-
-        Joueur joueurAcheteur;
-        for (int i = 0; i < listeJoueur.size(); i++) {
-            joueurAcheteur = listeJoueur.get(i);
-            if (emplacement.joueurProprietaire == null) {
-                if (!joueurAcheteur.equals(joueur)) {
-                    System.out.print(joueurAcheteur.nomJoueur + ", voulez-vous acheter la propriété? (oui/non): ");
-                    String choix = this.scanner.nextLine();
-                    if (choix.equals("oui")) {
-                        if (joueur.argentJoueur >= emplacement.prixPropriete) {
-                            emplacement.joueurProprietaire = joueur;
-                            joueur.argentJoueur = joueur.argentJoueur - emplacement.prixPropriete;
-                        }
-                    }
-                }
-            }
-        }
     }
 
     public void vendre(Propriete emplacement, Case caseATraiter) {
@@ -166,21 +164,6 @@ public class Joueur {
         this.argentJoueur = this.argentJoueur - (emplacement.prixPropriete * (1 + (nbPropriete * 0.25))); // revoir l'opération avec les maisons
     }
 
-    public void tirerCarteChance(ArrayList<Carte> carteChance, ArrayList<Joueur> listeJoueur) {
-        Random random = new Random();
-        int random1 = random.nextInt(1) + 0;
-
-        Carte carte = carteChance.get(random1);
-        carte.action(this, carte.typeCarte, carte.index, listeJoueur);
-    }
-
-    public void tirerCarteCommunaute(ArrayList<Carte> carteCommunaute, ArrayList<Joueur> listeJoueur) {
-        Random random = new Random();
-        int random1 = random.nextInt(1) + 0;
-
-        Carte carte = carteCommunaute.get(random1);
-        carte.action(this, carte.typeCarte, carte.index, listeJoueur);
-    }
 
     public int getNbGareJoueur(Joueur joueur, ArrayList<Case> listeCase){
 
@@ -220,6 +203,11 @@ public class Joueur {
         this.argentJoueur = this.argentJoueur - sommeADeduire;
         Jeu.getInstance().getPlateau().getIHM().getComposantArgentJoueur().updateLabels();
         Logger.printLog("Le joueur :" + this.getNomJoueur() + ", a perdu " + sommeADeduire + "$");
+    }
+
+    public void piocherChance()
+    {
+        Jeu.getInstance().getListeCarteChance().tirerCarte(this);
     }
 
     public Pion getPion()

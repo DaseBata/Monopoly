@@ -15,6 +15,8 @@ public class PanelActions extends JPanel {
     private final JButton btnAchat;
     private final JButton btnFinTour;
 
+    private final JButton btnTest;
+
     private JLabel resultatDes;
 
     public PanelActions()
@@ -29,10 +31,13 @@ public class PanelActions extends JPanel {
 
         this.btnAchat = new JButton("Acheter");
 
+        this.btnTest = new JButton("test chance");
+
 
         this.btnDes.addActionListener(e -> this.lancerDes());
         this.btnAchat.addActionListener(e -> this.joueur.achatPropriete());
         this.btnFinTour.addActionListener(e -> this.finirTour());
+        this.btnTest.addActionListener(e-> this.joueur.piocherChance());
 
         this.add(this.btnDes);
         this.add(this.resultatDes);
@@ -40,12 +45,15 @@ public class PanelActions extends JPanel {
         this.add(this.btnAchat);
         this.add(this.btnFinTour);
 
+        this.add(this.btnTest);
+
 
     }
 
     public void setJoueur(Joueur joueur)
     {
         this.joueur = joueur;
+        Logger.printLog("------------------------------------------------------------------------");
         Logger.printLog("Au tour de : " + joueur.getNomJoueur());
 
         this.btnDes.setEnabled(true);
@@ -67,10 +75,14 @@ public class PanelActions extends JPanel {
         // Si le joueur est sur une case propriete qui n'est pas déjà possédée
         if(this.joueur.getCaseActuelle() instanceof Propriete && this.joueur.getCaseActuelle().getJoueurProprietaire() == null)
         {
-            this.btnAchat.setEnabled(true);
             this.btnAchat.setText("Acheter : " + this.joueur.getCaseActuelle().getNomCase() + "("+((Propriete) this.joueur.getCaseActuelle()).getPrixPropriete() + "$)");
         }
 
+    }
+
+    public void activerBoutonAchat(boolean estActif)
+    {
+        this.btnAchat.setEnabled(estActif);
     }
 
     public void finirTour()

@@ -11,7 +11,7 @@ public class Logger {
     public static void printLog(String message)
     {
         numeroLog = numeroLog + 1;
-        Jeu.getInstance().getPlateau().getIHM().nouveauLog("["+numeroLog+"] " + message);
+        Jeu.getInstance().getPlateau().getIHM().getPanelLog().ajouterLog("["+numeroLog+"] " + message);
     }
 
 

@@ -1,5 +1,5 @@
 package monopoly.cases;
-import monopoly.Carte;
+import monopoly.cartes.Carte;
 import monopoly.Joueur;
 import monopoly.Plateau;
 
@@ -14,6 +14,6 @@ public class Communaute extends Case {
     @Override
     public void action(Joueur joueur, Plateau plateau, ArrayList<Case> listeCase, ArrayList<Carte> carteChance,
                        ArrayList<Carte> carteCommunaute, ArrayList<Joueur> listeJoueur) {
-        joueur.tirerCarteCommunaute(carteChance, listeJoueur);
+        //joueur.tirerCarteCommunaute(carteChance, listeJoueur);
     }
 }

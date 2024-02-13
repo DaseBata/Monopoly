@@ -1,6 +1,6 @@
 package monopoly.cases;
 
-import monopoly.Carte;
+import monopoly.cartes.Carte;
 import monopoly.Joueur;
 import monopoly.Plateau;
 
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public abstract class Case {
 
-    public int numeroCase;
+    private int numeroCase;
     private ArrayList<Joueur> listeJoueur;
     public String nomCase;
     public Joueur joueurProprietaire;
@@ -57,6 +57,8 @@ public abstract class Case {
     }
 
     public Joueur getJoueurProprietaire() { return this.joueurProprietaire; }
+
+    public int getNumeroCase() { return this.numeroCase; }
 
 
     public abstract void action(Joueur joueur, Plateau plateau, ArrayList<Case> listeCase, ArrayList<Carte> carteChance,

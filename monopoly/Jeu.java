@@ -1,4 +1,8 @@
 package monopoly;
+import monopoly.cartes.Carte;
+import monopoly.cartes.Paquet;
+import monopoly.cartes.PaquetCaisseCommunaute;
+import monopoly.cartes.PaquetChance;
 import monopoly.cases.Case;
 import monopoly.tools.Logger;
 
@@ -7,8 +11,8 @@ import java.util.*;
 public class Jeu {
     public static Jeu instance;
     private ArrayList<Joueur> listeJoueur;
-    private ArrayList<Carte> listeCarteChance;
-    private ArrayList<Carte> listeCaisseCommunnaute;
+    private PaquetChance listeCarteChance;
+    private PaquetCaisseCommunaute listeCarteCommunaute;
     private Plateau plateau;
     private int numeroJoueurActuel;
 
@@ -24,8 +28,8 @@ public class Jeu {
     public void initialiserJeu(Joueur joueur1, Joueur joueur2, Joueur joueur3, Joueur joueur4)
     {
 
-        this.listeCarteChance = this.initialiserCarteChance();
-        this.listeCaisseCommunnaute = this.initialiserCarteCommunaute();
+        this.listeCarteChance = new PaquetChance();
+        this.listeCarteCommunaute = new PaquetCaisseCommunaute();
 
         this.listeJoueur = this.initialiserJoueur(joueur1, joueur2, joueur3, joueur4);
         this.plateau = new Plateau();
@@ -38,70 +42,6 @@ public class Jeu {
         // Initialisation premier tour
         this.numeroJoueurActuel = 0;
         this.plateau.getIHM().getPanelGauche().setJoueur(this.listeJoueur.get(numeroJoueurActuel));
-
-
-        boolean fin = false;
-        int casesAAvancer;
-        Case caseATraiter;
-        int indexAllerPrison = 30;
-
-        Joueur joueurGagnant = null;
-
-        /*
-        while (listeJoueur.size() > 1) { //Un joueur gagne
-            Iterator<Joueur> iterator = listeJoueur.iterator();
-
-            while (iterator.hasNext() && listeJoueur.size() > 1) {
-                Joueur joueurActuel = iterator.next();
-
-                if ((plateau.getCase(joueurActuel.caseActuelle).nomCase.equals("Prison"))
-                        && (joueurActuel.enPrison == true)) { // Le joueur est en prison non visiteur
-                    casesAAvancer = joueurActuel.lancerDes();
-                    if (joueurActuel.doubleDes = true) { // en prison fait un double, sort
-                        joueurActuel.enPrison = false;
-                        joueurActuel.doubleDes = false;
-                        joueurActuel.tourEnPrison = 0;
-                    } else { // prend un tour de plus en prison
-                        joueurActuel.tourEnPrison = joueurActuel.tourEnPrison + 1;
-                    }
-
-                    if (joueurActuel.tourEnPrison == 3) { // si 3 tours en prison, sort et paie une amende
-                        joueurActuel.tourEnPrison = 0;
-                        joueurActuel.enPrison = false;
-                        joueurActuel.argentJoueur = joueurActuel.argentJoueur - 5000;
-                        plateau.ajoutParc(5000);
-                    }
-                } else { // si le joueur n'est pas en prison
-                    casesAAvancer = joueurActuel.lancerDes();
-
-                    do{
-                        if (joueurActuel.doubleDes == true){
-                            joueurActuel.nbDoubleAffile = joueurActuel.nbDoubleAffile + 1;
-                            if(joueurActuel.nbDoubleAffile == 3){
-                                casesAAvancer = indexAllerPrison - joueurActuel.caseActuelle;
-                                joueurActuel.nbDoubleAffile = 0;
-                                joueurActuel.doubleDes = false;
-                            }
-                        }
-                        joueurActuel.deplacer(casesAAvancer, plateau.getListeCase());
-                        caseATraiter = plateau.getCase(joueurActuel.caseActuelle);
-                        caseATraiter.action(joueurActuel, plateau, plateau.getListeCase(), carteChance, carteCommunaute, listeJoueur);
-
-                    } while (joueurActuel.doubleDes == false);
-                }
-
-                if(joueurActuel.argentJoueur < 0){
-                    iterator.remove();
-                }
-
-                if (listeJoueur.size() == 1) {
-                    joueurGagnant = listeJoueur.get(0);
-                }
-            }
-        }
-        System.out.println("" + joueurGagnant.nomJoueur);
-        */
-
     }
 
     public ArrayList<Joueur> initialiserJoueur(Joueur joueur1, Joueur joueur2, Joueur joueur3, Joueur joueur4)
@@ -113,35 +53,6 @@ public class Jeu {
         listeJoueur.add(joueur4);
 
         return listeJoueur;
-    }
-    public ArrayList<Carte> initialiserCarteChance() {
-
-        ArrayList<Carte> listeCarteChance = new ArrayList<Carte>();
-
-        Carte carte0 = new Carte("chance", 0);
-        Carte carte1 = new Carte("chance", 1);
-        Carte carte2 = new Carte("chance", 2);
-
-        listeCarteChance.add(carte0);
-        listeCarteChance.add(carte1);
-        listeCarteChance.add(carte2);
-
-        return listeCarteChance;
-    }
-
-    public ArrayList<Carte> initialiserCarteCommunaute() {
-
-        ArrayList<Carte> listeCarteCommunaute = new ArrayList<Carte>();
-
-        Carte carte0 = new Carte("communaute", 0);
-        Carte carte1 = new Carte("communaute", 1);
-        Carte carte2 = new Carte("communaute", 2);
-
-        listeCarteCommunaute.add(carte0);
-        listeCarteCommunaute.add(carte1);
-        listeCarteCommunaute.add(carte2);
-
-        return listeCarteCommunaute;
     }
 
     public void prochainTour()
@@ -158,4 +69,6 @@ public class Jeu {
     public ArrayList<Joueur> getListeJoueur() {
         return listeJoueur;
     }
+
+    public PaquetChance getListeCarteChance() { return this.listeCarteChance; }
 }

@@ -4,6 +4,7 @@ import monopoly.Fond;
 import monopoly.Joueur;
 import monopoly.ihm.composants.ArgentJoueurs;
 import monopoly.ihm.composants.PanelActions;
+import monopoly.ihm.composants.PanelLog;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -20,36 +21,33 @@ public class IHMPlateau extends JFrame {
     private final JPanel panelHaut;
     private final PanelActions panelGauche;
     private final Fond panelDroite;
-    private final JPanel panelBas;
-    private static final JTextArea textAreaLog = new JTextArea();
+    private final PanelLog panelBas;
     private ArgentJoueurs composantArgentJoueur;
 
     public IHMPlateau()
     {
         super("Monopoly");
-        setSize(900, 800);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setResizable(false);
+        this.setSize(900, 800);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setResizable(false);
 
         this.contentPane = new JPanel(new BorderLayout());
 
         this.panelHaut = new JPanel();
         this.panelGauche = new PanelActions();
         this.panelDroite = new Fond("monopoly.png");
-        this.panelBas = new JPanel();
-
+        this.panelBas = new PanelLog();
 
         this.creerPanelHaut();
         this.creerPanelDroite();
-        this.creerPanelBas();
 
-        contentPane.add(panelHaut, BorderLayout.NORTH);
-        contentPane.add(panelGauche, BorderLayout.WEST);
-        contentPane.add(panelDroite, BorderLayout.EAST);
-        contentPane.add(panelBas, BorderLayout.SOUTH);
+        this.contentPane.add(panelHaut, BorderLayout.NORTH);
+        this.contentPane.add(panelGauche, BorderLayout.WEST);
+        this.contentPane.add(panelDroite, BorderLayout.EAST);
+        this.contentPane.add(panelBas, BorderLayout.SOUTH);
 
-        setContentPane(contentPane);
-        setVisible(true);
+        this.setContentPane(contentPane);
+        this.setVisible(true);
 
     }
 
@@ -76,20 +74,6 @@ public class IHMPlateau extends JFrame {
         });
     }
 
-    public void creerPanelBas()
-    {
-        textAreaLog.setPreferredSize(new Dimension(850, 180));
-        textAreaLog.setLineWrap(true);
-        textAreaLog.setEditable(false);
-
-        JScrollPane scroll = new JScrollPane(textAreaLog);
-
-        this.panelBas.setPreferredSize(new Dimension(900, 200));
-        this.panelBas.setBackground(Color.YELLOW);
-        this.panelBas.add(scroll);
-
-    }
-
     public Fond getPanelDroite()
     {
         return this.panelDroite;
@@ -104,10 +88,9 @@ public class IHMPlateau extends JFrame {
         return this.composantArgentJoueur;
     }
 
-
-    public void nouveauLog(String message)
+    public PanelLog getPanelLog()
     {
-        this.textAreaLog.append(message + "\n");
+        return this.panelBas;
     }
 
     public static void main(String[] args)

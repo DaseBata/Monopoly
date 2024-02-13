@@ -1,5 +1,5 @@
 package monopoly.cases;
-import monopoly.Carte;
+import monopoly.cartes.Carte;
 import monopoly.Joueur;
 import monopoly.Plateau;
 
