@@ -38,6 +38,7 @@ public class Jeu {
 
         Logger.printLog(joueur1.nomJoueur + ", " + joueur2.nomJoueur + ", " + joueur3.nomJoueur + ", " + joueur4.nomJoueur + " sont arrivés dans la partie");
 
+        this.initPositionPion();
 
         // Initialisation premier tour
         this.numeroJoueurActuel = 0;
@@ -53,6 +54,14 @@ public class Jeu {
         listeJoueur.add(joueur4);
 
         return listeJoueur;
+    }
+
+    public void initPositionPion()
+    {
+        for(Joueur joueur : this.listeJoueur)
+        {
+            joueur.getPion().updatePositionPion(0);
+        }
     }
 
     public void prochainTour()
@@ -71,4 +80,8 @@ public class Jeu {
     }
 
     public PaquetChance getListeCarteChance() { return this.listeCarteChance; }
+
+    public PaquetCaisseCommunaute getListeCarteCommunaute() {
+        return listeCarteCommunaute;
+    }
 }

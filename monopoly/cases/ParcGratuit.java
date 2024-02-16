@@ -2,13 +2,12 @@ package monopoly.cases;
 import monopoly.cartes.Carte;
 import monopoly.Joueur;
 import monopoly.Plateau;
+import monopoly.tools.Logger;
 
 import java.util.ArrayList;
 
 public class ParcGratuit extends Case {
-
-    int montantParc;
-    String nomCase;
+    private int montantParc;
 
     public ParcGratuit(int index, String nomCase, int coordX, int coordY) {
         super(index, nomCase, coordX, coordY);
@@ -16,21 +15,22 @@ public class ParcGratuit extends Case {
     }
 
     @Override
-    public void action(Joueur joueur, Plateau plateau, ArrayList<Case> listeCase, ArrayList<Carte> carteChance,
-                       ArrayList<Carte> carteCommunaute, ArrayList<Joueur> listeJoueur) {
-        joueur.argentJoueur = joueur.argentJoueur + montantParc;
+    public void action(Joueur joueur) {
+        Logger.printLog("Bravo, vous êtes arrivé sur le parc gratuit.");
+        joueur.ajouterArgent(this.montantParc);
         this.remiseAZero();
     }
 
     public void remiseAZero() {
-        montantParc = 0;
+        this.montantParc = 0;
     }
 
     public int getArgentParc() {
-        return montantParc;
+        return this.montantParc;
     }
 
-    public void setArgentParc(int argent) {
-        montantParc = montantParc + argent;
+    public void setArgentParc(int somme) {
+        montantParc = montantParc + somme;
     }
+
 }

@@ -12,7 +12,6 @@ public abstract class Case {
     private ArrayList<Joueur> listeJoueur;
     public String nomCase;
     public Joueur joueurProprietaire;
-
     private int coordoneePlateauX;
     private int getCoordoneePlateauY;
 
@@ -61,21 +60,7 @@ public abstract class Case {
     public int getNumeroCase() { return this.numeroCase; }
 
 
-    public abstract void action(Joueur joueur, Plateau plateau, ArrayList<Case> listeCase, ArrayList<Carte> carteChance,
-                                ArrayList<Carte> carteCommunaute, ArrayList<Joueur> listeJoueur);
+    public abstract void action(Joueur joueur);
 
 
-    /*
-     * public boolean contientJoueur(ArrayList<Joueur> listeJoueur, Joueur Joueur){
-     *
-     * int i = 0;
-     * while (i<listeJoueur.size()){
-     * if(listeJoueur.get(i).equals(Joueur)){
-     * return true;
-     * }
-     * i++;
-     * }
-     * return false;
-     * }
-     */
 }

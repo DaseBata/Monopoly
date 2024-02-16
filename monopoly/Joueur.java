@@ -2,6 +2,7 @@ package monopoly;
 import monopoly.cartes.Carte;
 import monopoly.cases.Case;
 import monopoly.cases.Depart;
+import monopoly.cases.Gare;
 import monopoly.cases.Propriete;
 import monopoly.tools.Logger;
 
@@ -21,6 +22,7 @@ public class Joueur {
     public Scanner scanner;
     public int nbDoubleAffile;
     public Pion pion;
+    private ArrayList<Gare> garesPossedee;
 
     public Joueur(String nomJoueur) {
         this.nomJoueur = nomJoueur;
@@ -34,6 +36,8 @@ public class Joueur {
         this.scanner = new Scanner(System.in);
         this.nbDoubleAffile = 0;
         this.pion = new Pion(0, 0, Color.RED);
+        this.garesPossedee = new ArrayList<Gare>();
+
     }
 
     public int lancerDes()
@@ -79,47 +83,9 @@ public class Joueur {
         Jeu.getInstance().getPlateau().getIHM().getPanelDroite().rafraichirPlateau();
         Logger.printLog("Le joueur : " + this.getNomJoueur() + ", est arrivé sur la case : " + Jeu.getInstance().getPlateau().getCase(caseActuelle).getNomCase());
 
-        if(this.getCaseActuelle() instanceof Propriete)
-        {
-
-            if(this.getCaseActuelle().getJoueurProprietaire() == null)
-            {
-                Logger.printLog("Cette propriété n'appartient à aucun joueur, vous pouvez l'acheter.");
-                Jeu.getInstance().getPlateau().getIHM().getPanelGauche().activerBoutonAchat(true); // On peut acheter
-                return;
-            }
-            if(this.getCaseActuelle().getJoueurProprietaire() == this)
-            {
-                Logger.printLog("Vous possédez déjà cette propriété.");
-                Jeu.getInstance().getPlateau().getIHM().getPanelGauche().activerBoutonAchat(false);
-                return;
-            }
-            if(this.getCaseActuelle().getJoueurProprietaire() != this)
-            {
-                Logger.printLog("Cette propriété appartient déjà au joueur : " + this.getCaseActuelle().getJoueurProprietaire().getNomJoueur());
-                this.payerProprietaire();
-                return;
-            }
-        }
+        this.getCaseActuelle().action(this);
 
         this.ancienneCase = caseActuelle;
-    }
-
-    public void acheter(Propriete emplacement, Case caseATraiter, ArrayList<Joueur> listeJoueur) {
-        // Tout sauf case départ
-        if(!(caseATraiter instanceof Depart)) {
-            System.out.print("Voulez-vous acheter la propriété " + caseATraiter.nomCase + "? (oui/non): ");
-            String choix = this.scanner.nextLine();
-            if (choix.equals("oui")) {
-                if (this.argentJoueur >= emplacement.prixPropriete) {
-                    caseATraiter.joueurProprietaire = this;
-                    this.argentJoueur = this.argentJoueur - emplacement.prixPropriete;
-                }
-            } else {
-                //proposerAchat(listeJoueur, this, emplacement);
-            }
-        }
-
     }
 
     public void achatPropriete()
@@ -128,7 +94,13 @@ public class Joueur {
         {
             this.deduireArgent(((Propriete) this.getCaseActuelle()).getPrixPropriete());
             Logger.printLog(this.getNomJoueur() + " a acheté la propriété : " + this.getCaseActuelle().getNomCase() + " pour : " + ((Propriete) this.getCaseActuelle()).getPrixPropriete() + "$");
+            ((Propriete) this.getCaseActuelle()).setJoueurProprietaire(this);
             Jeu.getInstance().getPlateau().getIHM().getPanelGauche().activerBoutonAchat(false);
+
+            if(this.getCaseActuelle() instanceof Gare)
+            {
+                this.garesPossedee.add((Gare)this.getCaseActuelle()); // calcul
+            }
         }
         else
         {
@@ -141,45 +113,22 @@ public class Joueur {
 
     public void payerProprietaire()
     {
-        Propriete caseActuelle = (Propriete) this.getCaseActuelle();
-        Joueur proprietaire = caseActuelle.getJoueurProprietaire();
-        int prixApayer = caseActuelle.getPrixPropriete();
+        int prixAPayer = 0;
 
-        this.deduireArgent(prixApayer);
-        proprietaire.ajouterArgent(prixApayer);
-
-    }
-
-    public void vendre(Propriete emplacement, Case caseATraiter) {
-
-        System.out.print("Voulez-vous vendre votre propriété? (oui/non): ");
-        String choix = this.scanner.nextLine();
-        if (choix.equals("oui")) {
-            caseATraiter.joueurProprietaire = null;
-            this.argentJoueur = this.argentJoueur + emplacement.prixPropriete ;
+        if(this.getCaseActuelle() instanceof Gare)
+        {
+            prixAPayer = ((Gare) this.getCaseActuelle()).getPrixPropriete() * this.getCaseActuelle().getJoueurProprietaire().getNbGares();
+            Logger.printLog("Le propriétaire de cette Gare possède : " + this.getCaseActuelle().getJoueurProprietaire().getNbGares() + " gares");
         }
-    }
-
-    public void paieTaxe(Propriete emplacement, int nbPropriete) {
-        this.argentJoueur = this.argentJoueur - (emplacement.prixPropriete * (1 + (nbPropriete * 0.25))); // revoir l'opération avec les maisons
-    }
-
-
-    public int getNbGareJoueur(Joueur joueur, ArrayList<Case> listeCase){
-
-        int nombreGare = 0;
-
-        for( int i =0; i < listeCase.size(); i++){
-            Case caseATraiter = listeCase.get(i);
-            String nomATraiter = caseATraiter.nomCase.substring(0, 4);
-            if (nomATraiter.equals("Gare")){
-                if(caseATraiter.joueurProprietaire.equals(joueur)){
-                    nombreGare = nombreGare + 1;
-                }
-            }
+        else
+        {
+            Propriete caseActuelle = (Propriete) this.getCaseActuelle();
+            prixAPayer = caseActuelle.getPrixPropriete();
         }
-        return nombreGare;
+        this.deduireArgent(prixAPayer);
+        this.getCaseActuelle().getJoueurProprietaire().ajouterArgent(prixAPayer);
     }
+
 
     public String getNomJoueur()
     {
@@ -210,6 +159,11 @@ public class Joueur {
         Jeu.getInstance().getListeCarteChance().tirerCarte(this);
     }
 
+    public void piocherCaisseCommunaute()
+    {
+        Jeu.getInstance().getListeCarteCommunaute().tirerCarte(this);
+    }
+
     public Pion getPion()
     {
         return this.pion;
@@ -218,6 +172,11 @@ public class Joueur {
     public Case getCaseActuelle()
     {
         return Jeu.getInstance().getPlateau().getCase(this.caseActuelle);
+    }
+
+    public int getNbGares()
+    {
+        return this.garesPossedee.size();
     }
 
 }

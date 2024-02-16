@@ -13,8 +13,7 @@ public class Chance extends Case {
     }
 
     @Override
-    public void action(Joueur joueur, Plateau plateau, ArrayList<Case> listeCase, ArrayList<Carte> carteChance,
-                       ArrayList<Carte> carteCommunaute, ArrayList<Joueur> listeJoueur) {
-        //joueur.tirerCarteChance(carteChance, listeJoueur);
+    public void action(Joueur joueur) {
+        joueur.piocherChance();
     }
 }

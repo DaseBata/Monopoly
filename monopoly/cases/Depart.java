@@ -8,19 +8,15 @@ import java.util.ArrayList;
 public class Depart extends Case {
 
     public String nomCase;
-    public int argentDePassage = 20000;
+    public static int MONTANT_CASE_DEPART = 20000;
 
     public Depart(int index, String nomCase, int coordX, int coordY) {
         super(index, nomCase, coordX, coordY);
     }
 
-    public int getArgentPassage() {
-        return this.argentDePassage;
-    }
-
     @Override
-    public void action(Joueur joueur, Plateau plateau, ArrayList<Case> listeCase, ArrayList<Carte> carteChance,
-                       ArrayList<Carte> carteCommunaute, ArrayList<Joueur> listeJoueur) {
-        System.out.println("Vous venez de passer par la case départ");
+    public void action(Joueur joueur) {
+        System.out.println("Vous venez de passer par la case départ, vous gagnez F20 000");
+        joueur.ajouterArgent(MONTANT_CASE_DEPART);
     }
 }

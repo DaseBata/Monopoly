@@ -7,7 +7,6 @@ import java.util.ArrayList;
 public class Plateau {
 
     private ArrayList<Case> listeCase;
-    private int argentParcGratuit;
     private ParcGratuit parc;
     private IHMPlateau ihm;
 
