@@ -4,6 +4,7 @@ import monopoly.cartes.Paquet;
 import monopoly.cartes.PaquetCaisseCommunaute;
 import monopoly.cartes.PaquetChance;
 import monopoly.cases.Case;
+import monopoly.cases.Propriete;
 import monopoly.tools.Logger;
 
 import java.util.*;
@@ -69,6 +70,32 @@ public class Jeu {
         this.numeroJoueurActuel = (this.numeroJoueurActuel + 1) % 4;
         this.plateau.getIHM().getPanelGauche().setJoueur(this.listeJoueur.get(numeroJoueurActuel));
         Logger.printLog("C'est au tour de : " + this.listeJoueur.get(numeroJoueurActuel).getNomJoueur() + " de jouer");
+    }
+
+    public void eliminerJoueur(Joueur joueur)
+    {
+        this.listeJoueur.remove(joueur);
+
+        if(this.listeJoueur.size() == 1)
+        {
+            Logger.printLog(this.getListeJoueur().get(0).getNomJoueur() + " est le dernier en lise, il remporte la partie !");
+        }
+        else
+        {
+            Logger.printLog(joueur.getNomJoueur() + " a été éliminé de la partie, faute d'argent");
+
+            for(Case casePlateau : this.plateau.getListeCase())
+            {
+                if(casePlateau instanceof Propriete)
+                {
+                    if( ((Propriete)casePlateau).getJoueurProprietaire() == joueur){
+                        ((Propriete) casePlateau).setJoueurProprietaire(null); // On retire les propriétés
+                        Logger.printLog("La case : " + casePlateau.getNomCase() + "a été libéré du plateau");
+                    }
+                }
+            }
+        }
+
     }
 
     public Plateau getPlateau() {

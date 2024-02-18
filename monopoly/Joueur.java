@@ -152,6 +152,12 @@ public class Joueur {
     public void deduireArgent(int sommeADeduire)
     {
         this.argentJoueur = this.argentJoueur - sommeADeduire;
+
+        if(this.argentJoueur <= 0)
+        {
+            Jeu.getInstance().eliminerJoueur(this);
+        }
+
         Jeu.getInstance().getPlateau().getIHM().getComposantArgentJoueur().updateLabels();
         Logger.printLog("Le joueur :" + this.getNomJoueur() + ", a perdu " + sommeADeduire + "$");
     }
