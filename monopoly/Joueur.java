@@ -24,6 +24,7 @@ public class Joueur {
     public int nbDoubleAffile;
     public Pion pion;
     private ArrayList<Gare> garesPossedee;
+    private boolean estElimine;
 
     public Joueur(String nomJoueur) {
         this.nomJoueur = nomJoueur;
@@ -38,6 +39,7 @@ public class Joueur {
         this.nbDoubleAffile = 0;
         this.pion = new Pion(0, 0, Color.RED);
         this.garesPossedee = new ArrayList<Gare>();
+        this.estElimine = false;
 
     }
 
@@ -208,6 +210,16 @@ public class Joueur {
     {
         this.estEnPrison = false;
         this.tourEnPrison = 0;
+    }
+
+    public void setEstElimine(boolean estElimine)
+    {
+        this.estElimine = estElimine;
+    }
+
+    public boolean estElimine()
+    {
+        return this.estElimine;
     }
 
 }

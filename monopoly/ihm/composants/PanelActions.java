@@ -15,7 +15,7 @@ public class PanelActions extends JPanel {
     private final JButton btnAchat;
     private final JButton btnFinTour;
     private final JButton btnPayerPrison;
-    private final JButton btnTest;
+    private final JButton btnTest, btnTest2, btnTest3;
     private final JLabel resultatDes;
     private final JLabel argentParcGratuit;
 
@@ -33,14 +33,20 @@ public class PanelActions extends JPanel {
         this.btnAchat = new JButton("Acheter");
         this.argentParcGratuit = new JLabel("Parc gratuit : 0F" );
 
-        this.btnTest = new JButton("test chance");
+        this.btnTest = new JButton("Test 0F 1");
+        this.btnTest2 = new JButton("Test 0F 2");
+        this.btnTest3 = new JButton("Test 0F 3");
 
 
         this.btnDes.addActionListener(e -> this.lancerDes());
         this.btnAchat.addActionListener(e -> this.joueur.achatPropriete());
         this.btnFinTour.addActionListener(e -> this.finirTour());
-        this.btnTest.addActionListener(e-> this.joueur.piocherChance());
         this.btnPayerPrison.addActionListener(e -> this.payerPrison());
+
+        //this.btnTest.addActionListener(e-> this.joueur.piocherChance());
+        this.btnTest.addActionListener(e->this.joueur.deduireArgent(150000));
+        this.btnTest2.addActionListener(e->this.joueur.deduireArgent(150000));
+        this.btnTest3.addActionListener(e->this.joueur.deduireArgent(150000));
 
 
         this.add(this.btnDes);
@@ -51,6 +57,8 @@ public class PanelActions extends JPanel {
         this.add(this.btnFinTour);
 
         this.add(this.btnTest);
+        this.add(this.btnTest2);
+        this.add(this.btnTest3);
 
         this.add(this.argentParcGratuit);
 

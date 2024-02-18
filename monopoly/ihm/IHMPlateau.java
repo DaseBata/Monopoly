@@ -1,4 +1,6 @@
 package monopoly.ihm;
+import monopoly.Jeu;
+import monopoly.Joueur;
 import monopoly.ihm.composants.ArgentJoueurs;
 import monopoly.ihm.composants.Fond;
 import monopoly.ihm.composants.PanelActions;
@@ -8,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 
 public class IHMPlateau extends JFrame {

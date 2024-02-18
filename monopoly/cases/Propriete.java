@@ -47,7 +47,6 @@ public class Propriete extends Case {
     }
     public void setJoueurProprietaire(Joueur joueur) {
         this.joueurProprietaire = joueur;
-        System.out.println(joueur.nomJoueur);
     }
 
 }

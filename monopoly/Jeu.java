@@ -67,16 +67,16 @@ public class Jeu {
 
     public void prochainTour()
     {
-        this.numeroJoueurActuel = (this.numeroJoueurActuel + 1) % 4;
+        this.numeroJoueurActuel = (this.numeroJoueurActuel + 1) % this.listeJoueur.size();
         this.plateau.getIHM().getPanelGauche().setJoueur(this.listeJoueur.get(numeroJoueurActuel));
         Logger.printLog("C'est au tour de : " + this.listeJoueur.get(numeroJoueurActuel).getNomJoueur() + " de jouer");
     }
 
     public void eliminerJoueur(Joueur joueur)
     {
-        this.listeJoueur.remove(joueur);
+        joueur.setEstElimine(true);
 
-        if(this.listeJoueur.size() == 1)
+        if(nbJoueursElimines() == 3)
         {
             Logger.printLog(this.getListeJoueur().get(0).getNomJoueur() + " est le dernier en lise, il remporte la partie !");
         }
@@ -90,10 +90,12 @@ public class Jeu {
                 {
                     if( ((Propriete)casePlateau).getJoueurProprietaire() == joueur){
                         ((Propriete) casePlateau).setJoueurProprietaire(null); // On retire les propriétés
-                        Logger.printLog("La case : " + casePlateau.getNomCase() + "a été libéré du plateau");
+                        Logger.printLog("La case : " + casePlateau.getNomCase() + " a été libérée du plateau");
                     }
                 }
             }
+
+            this.prochainTour();
         }
 
     }
@@ -110,5 +112,18 @@ public class Jeu {
 
     public PaquetCaisseCommunaute getListeCarteCommunaute() {
         return listeCarteCommunaute;
+    }
+
+    public int nbJoueursElimines()
+    {
+        int compteur = 0;
+        for(Joueur joueur : this.listeJoueur)
+        {
+            if(joueur.estElimine())
+            {
+                compteur = compteur + 1;
+            }
+        }
+        return compteur;
     }
 }
