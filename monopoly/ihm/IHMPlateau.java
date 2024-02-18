@@ -91,11 +91,6 @@ public class IHMPlateau extends JFrame {
         return this.panelBas;
     }
 
-    public static void main(String[] args)
-    {
-        JFrame frame = new IHMPlateau();
-    }
-
 
 
 }

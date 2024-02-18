@@ -104,11 +104,6 @@ public class IHMInscription extends JFrame {
         this.labelErreur.setVisible(true);
     }
 
-    public static void main(String[] args)
-    {
-        JFrame frame = new IHMInscription();
-    }
-
 
 
 }
