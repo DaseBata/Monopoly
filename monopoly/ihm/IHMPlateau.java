@@ -1,18 +1,13 @@
 package monopoly.ihm;
-import monopoly.Jeu;
-import monopoly.Fond;
-import monopoly.Joueur;
 import monopoly.ihm.composants.ArgentJoueurs;
+import monopoly.ihm.composants.Fond;
 import monopoly.ihm.composants.PanelActions;
 import monopoly.ihm.composants.PanelLog;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.Random;
 
 
 public class IHMPlateau extends JFrame {

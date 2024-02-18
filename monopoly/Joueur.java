@@ -13,12 +13,13 @@ public class Joueur {
 
     public boolean enPrison;
     public String nomJoueur;
-    public double argentJoueur;
+    public int argentJoueur;
     public int caseActuelle;
     public boolean doubleDes;
     public int compteurDouble;
     public int ancienneCase;
     public int tourEnPrison;
+    private boolean estEnPrison;
     public Scanner scanner;
     public int nbDoubleAffile;
     public Pion pion;
@@ -49,14 +50,13 @@ public class Joueur {
         int random2 = random.nextInt(6) + 1;
 
         int resultat = random1 + random2;
-
         if (random1 == random2) {
             this.doubleDes = true;
             this.compteurDouble = this.compteurDouble + 1;
         }
 
 
-        Logger.printLog(this.getNomJoueur() + " a lancé les dés, résultat : " + resultat);
+        Logger.printLog(this.getNomJoueur() + " a lancé les dés, résultat : " + resultat + " (" + random1 + " + " + random2 + ")");
         this.deplacer(resultat);
 
         return resultat;
@@ -94,7 +94,9 @@ public class Joueur {
         {
             this.deduireArgent(((Propriete) this.getCaseActuelle()).getPrixPropriete());
             Logger.printLog(this.getNomJoueur() + " a acheté la propriété : " + this.getCaseActuelle().getNomCase() + " pour : " + ((Propriete) this.getCaseActuelle()).getPrixPropriete() + "$");
+
             ((Propriete) this.getCaseActuelle()).setJoueurProprietaire(this);
+
             Jeu.getInstance().getPlateau().getIHM().getPanelGauche().activerBoutonAchat(false);
 
             if(this.getCaseActuelle() instanceof Gare)
@@ -117,8 +119,8 @@ public class Joueur {
 
         if(this.getCaseActuelle() instanceof Gare)
         {
-            prixAPayer = ((Gare) this.getCaseActuelle()).getPrixPropriete() * this.getCaseActuelle().getJoueurProprietaire().getNbGares();
-            Logger.printLog("Le propriétaire de cette Gare possède : " + this.getCaseActuelle().getJoueurProprietaire().getNbGares() + " gares");
+            prixAPayer = ((Gare) this.getCaseActuelle()).getPrixPropriete() * ((Propriete)this.getCaseActuelle()).getJoueurProprietaire().getNbGares();
+            Logger.printLog("Le propriétaire de cette Gare possède : " + ((Propriete)this.getCaseActuelle()).getJoueurProprietaire().getNbGares() + " gares");
         }
         else
         {
@@ -126,7 +128,7 @@ public class Joueur {
             prixAPayer = caseActuelle.getPrixPropriete();
         }
         this.deduireArgent(prixAPayer);
-        this.getCaseActuelle().getJoueurProprietaire().ajouterArgent(prixAPayer);
+        ((Propriete)this.getCaseActuelle()).getJoueurProprietaire().ajouterArgent(prixAPayer);
     }
 
 
@@ -135,7 +137,7 @@ public class Joueur {
         return this.nomJoueur;
     }
 
-    public double getArgentJoueur()
+    public int getArgentJoueur()
     {
         return this.argentJoueur;
     }
@@ -174,9 +176,32 @@ public class Joueur {
         return Jeu.getInstance().getPlateau().getCase(this.caseActuelle);
     }
 
+    public void setCaseActuelle(int numCase) {
+        this.caseActuelle = numCase;
+        Jeu.getInstance().getPlateau().getIHM().getPanelDroite().rafraichirPlateau();
+    }
+
     public int getNbGares()
     {
         return this.garesPossedee.size();
+    }
+
+    public boolean estEnPrison()
+    {
+        return this.estEnPrison;
+    }
+
+    public void allerEnPrison()
+    {
+        this.estEnPrison = true;
+        this.tourEnPrison = 3;
+        this.setCaseActuelle(30);
+    }
+
+    public void libererDePrison()
+    {
+        this.estEnPrison = false;
+        this.tourEnPrison = 0;
     }
 
 }

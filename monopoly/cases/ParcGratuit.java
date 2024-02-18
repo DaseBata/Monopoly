@@ -1,4 +1,5 @@
 package monopoly.cases;
+import monopoly.Jeu;
 import monopoly.cartes.Carte;
 import monopoly.Joueur;
 import monopoly.Plateau;
@@ -23,6 +24,7 @@ public class ParcGratuit extends Case {
 
     public void remiseAZero() {
         this.montantParc = 0;
+        Jeu.getInstance().getPlateau().getIHM().getPanelGauche().updateLabelParcGratuit();
     }
 
     public int getArgentParc() {
@@ -31,6 +33,7 @@ public class ParcGratuit extends Case {
 
     public void setArgentParc(int somme) {
         montantParc = montantParc + somme;
+        Jeu.getInstance().getPlateau().getIHM().getPanelGauche().updateLabelParcGratuit();
     }
 
 }

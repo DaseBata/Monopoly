@@ -57,10 +57,10 @@ public class ArgentJoueurs extends JPanel {
         Joueur joueur3 = joueurs.get(2);
         Joueur joueur4 = joueurs.get(3);
 
-        labelJoueur1.setText(joueur1.getNomJoueur() + ": " + joueur1.getArgentJoueur());
-        labelJoueur2.setText(joueur2.getNomJoueur() + ": " + joueur2.getArgentJoueur());
-        labelJoueur3.setText(joueur3.getNomJoueur() + ": " + joueur3.getArgentJoueur());
-        labelJoueur4.setText(joueur4.getNomJoueur() + ": " + joueur4.getArgentJoueur());
+        labelJoueur1.setText(joueur1.getNomJoueur() + ": " + joueur1.getArgentJoueur() + "F");
+        labelJoueur2.setText(joueur2.getNomJoueur() + ": " + joueur2.getArgentJoueur() + "F");
+        labelJoueur3.setText(joueur3.getNomJoueur() + ": " + joueur3.getArgentJoueur() + "F");
+        labelJoueur4.setText(joueur4.getNomJoueur() + ": " + joueur4.getArgentJoueur() + "F");
     }
 
 

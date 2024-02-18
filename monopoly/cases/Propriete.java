@@ -36,11 +36,18 @@ public class Propriete extends Case {
         }
         else
         {
-            Logger.printLog("Cette propriété appartient déjà au joueur : " + this.getJoueurProprietaire().getNomJoueur());
+            Logger.printLog("Cette propriété appartient déjà au joueur : " + this.joueurProprietaire.getNomJoueur());
             joueur.payerProprietaire();
         }
     }
 
-    public void setJoueurProprietaire(Joueur joueur) { this.joueurProprietaire = joueur; }
+    public Joueur getJoueurProprietaire()
+    {
+        return this.joueurProprietaire;
+    }
+    public void setJoueurProprietaire(Joueur joueur) {
+        this.joueurProprietaire = joueur;
+        System.out.println(joueur.nomJoueur);
+    }
 
 }

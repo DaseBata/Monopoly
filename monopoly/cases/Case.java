@@ -11,7 +11,6 @@ public abstract class Case {
     private int numeroCase;
     private ArrayList<Joueur> listeJoueur;
     public String nomCase;
-    public Joueur joueurProprietaire;
     private int coordoneePlateauX;
     private int getCoordoneePlateauY;
 
@@ -19,7 +18,6 @@ public abstract class Case {
         this.listeJoueur = new ArrayList<>();
         this.numeroCase = numeroCase;
         this.nomCase = nomCase;
-        this.joueurProprietaire = null;
         this.coordoneePlateauX = coordX;
         this.getCoordoneePlateauY = coordY;
     }
@@ -54,8 +52,6 @@ public abstract class Case {
     {
         return this.listeJoueur;
     }
-
-    public Joueur getJoueurProprietaire() { return this.joueurProprietaire; }
 
     public int getNumeroCase() { return this.numeroCase; }
 

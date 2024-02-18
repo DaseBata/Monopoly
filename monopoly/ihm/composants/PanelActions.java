@@ -14,10 +14,10 @@ public class PanelActions extends JPanel {
     private final JButton btnDes;
     private final JButton btnAchat;
     private final JButton btnFinTour;
-
+    private final JButton btnPayerPrison;
     private final JButton btnTest;
-
-    private JLabel resultatDes;
+    private final JLabel resultatDes;
+    private final JLabel argentParcGratuit;
 
     public PanelActions()
     {
@@ -28,8 +28,10 @@ public class PanelActions extends JPanel {
         this.resultatDes = new JLabel("Résultat des dés : ");
         this.btnFinTour = new JButton("Finir mon tour");
 
+        this.btnPayerPrison = new JButton("Sortir de prison (5000F)");
 
         this.btnAchat = new JButton("Acheter");
+        this.argentParcGratuit = new JLabel("Parc gratuit : 0F" );
 
         this.btnTest = new JButton("test chance");
 
@@ -38,14 +40,19 @@ public class PanelActions extends JPanel {
         this.btnAchat.addActionListener(e -> this.joueur.achatPropriete());
         this.btnFinTour.addActionListener(e -> this.finirTour());
         this.btnTest.addActionListener(e-> this.joueur.piocherChance());
+        this.btnPayerPrison.addActionListener(e -> this.payerPrison());
+
 
         this.add(this.btnDes);
         this.add(this.resultatDes);
 
         this.add(this.btnAchat);
+        this.add(this.btnPayerPrison);
         this.add(this.btnFinTour);
 
         this.add(this.btnTest);
+
+        this.add(this.argentParcGratuit);
 
 
     }
@@ -56,11 +63,13 @@ public class PanelActions extends JPanel {
         Logger.printLog("------------------------------------------------------------------------");
         Logger.printLog("Au tour de : " + joueur.getNomJoueur());
 
-        this.btnDes.setEnabled(true);
+        this.btnDes.setEnabled(!this.joueur.estEnPrison());
+        this.btnPayerPrison.setEnabled(this.joueur.estEnPrison());
+
         this.resultatDes.setText("Résultat des dés : ");
 
         this.btnAchat.setEnabled(false);
-        this.btnFinTour.setEnabled(false);
+        this.btnFinTour.setEnabled(this.joueur.estEnPrison()); // le joueur en prison peut décider de ne pas payer
 
     }
 
@@ -73,7 +82,7 @@ public class PanelActions extends JPanel {
         this.btnFinTour.setEnabled(true);
 
         // Si le joueur est sur une case propriete qui n'est pas déjà possédée
-        if(this.joueur.getCaseActuelle() instanceof Propriete && this.joueur.getCaseActuelle().getJoueurProprietaire() == null)
+        if(this.joueur.getCaseActuelle() instanceof Propriete && ((Propriete)this.joueur.getCaseActuelle()).getJoueurProprietaire() == null)
         {
             this.btnAchat.setText("Acheter : " + this.joueur.getCaseActuelle().getNomCase() + "("+((Propriete) this.joueur.getCaseActuelle()).getPrixPropriete() + "$)");
         }
@@ -93,6 +102,19 @@ public class PanelActions extends JPanel {
     public void changerResultatDes(int resultatLancer)
     {
         this.resultatDes.setText("Resultat des dés : " + resultatLancer);
+    }
+
+    public void updateLabelParcGratuit()
+    {
+        this.argentParcGratuit.setText("Parc gratuit :" + Jeu.getInstance().getPlateau().getParcGratuit().getArgentParc() + "F");
+    }
+
+    public void payerPrison()
+    {
+        Logger.printLog(this.joueur.getNomJoueur() + " a payé 5000F pour sortir de prison au prochain tour.");
+        this.joueur.deduireArgent(5000);
+        this.joueur.libererDePrison();
+        Jeu.getInstance().prochainTour(); // on passe au joueur suivant
     }
 
 

@@ -1,5 +1,8 @@
-package monopoly;
+package monopoly.ihm.composants;
 
+import monopoly.Jeu;
+import monopoly.Joueur;
+import monopoly.Pion;
 import monopoly.cases.Case;
 
 import javax.swing.*;

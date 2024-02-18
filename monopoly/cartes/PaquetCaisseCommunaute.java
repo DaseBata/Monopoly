@@ -1,5 +1,7 @@
 package monopoly.cartes;
 
+import java.util.Collections;
+
 public class PaquetCaisseCommunaute extends Paquet {
 
     public PaquetCaisseCommunaute()
@@ -28,6 +30,7 @@ public class PaquetCaisseCommunaute extends Paquet {
         this.paquetCarte.add(new CartePerte("Payez votre Police d’Assurance F5 000", 5000));
         this.paquetCarte.add(new CartePerte("Payez une amende de F1 000", 1000));
 
+        Collections.shuffle(this.paquetCarte);
 
     }
 

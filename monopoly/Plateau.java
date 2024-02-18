@@ -9,10 +9,12 @@ public class Plateau {
     private ArrayList<Case> listeCase;
     private ParcGratuit parc;
     private IHMPlateau ihm;
+    private Prison prison;
 
     public Plateau() {
         this.listeCase = new ArrayList<>();
         this.parc = new ParcGratuit(20, "Parc gratuit", 26, 30);
+        this.prison = new Prison(10, "Prison", 11, 457);
         this.ihm = new IHMPlateau();
     }
 
@@ -28,7 +30,7 @@ public class Plateau {
         listeCase.add(new Chance(7, "Chance", 190, 457));
         listeCase.add(new Propriete(8, "Rue de Courcelles", 10000, 156, 457));
         listeCase.add(new Propriete(9, "Avenue de la Republique", 10000, 104, 457));
-        listeCase.add(new Prison(10, "Prison", 11, 457));
+        listeCase.add(this.prison);
 
         listeCase.add(new Propriete(11, "Boul. de la Vilette", 14000, 26, 390));
         listeCase.add(new Taxe(12, "Compagnie de dist. d'Electricite", 15000, 26, 350));
@@ -86,6 +88,16 @@ public class Plateau {
     public IHMPlateau getIHM()
     {
         return this.ihm;
+    }
+
+    public ParcGratuit getParcGratuit()
+    {
+        return this.parc;
+    }
+
+    public Prison getPrison()
+    {
+        return this.prison;
     }
 
 }

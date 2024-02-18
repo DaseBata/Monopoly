@@ -1,5 +1,9 @@
 package monopoly.cartes;
 
+import monopoly.tools.Logger;
+
+import java.util.Collections;
+
 public class PaquetChance extends Paquet {
 
     public PaquetChance()
@@ -27,7 +31,7 @@ public class PaquetChance extends Paquet {
         this.paquetCarte.add(new CartePerte("Amende pour excès de vitesse F1 500", 1500));
         this.paquetCarte.add(new CartePerte("Payez pour frais de scolarité F15 000", 15000));
 
-
+        Collections.shuffle(this.paquetCarte);
     }
 
 
